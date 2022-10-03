@@ -27,7 +27,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-<!--        Unnaded LiquidBase because of lack of connection to database-->
+<!--        Unnamed LiquidBase because of lack of connection to database-->
 <!--        <dependency>-->
 <!--            <groupId>org.liquibase</groupId>-->
 <!--            <artifactId>liquibase-core</artifactId>-->

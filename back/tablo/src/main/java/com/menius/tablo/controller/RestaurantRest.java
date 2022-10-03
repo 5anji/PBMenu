@@ -1,18 +1,18 @@
 package com.menius.tablo.controller;
 
 import com.menius.tablo.service.RestaurantService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/tablo")
-@AllArgsConstructor
+@RequiredArgsConstructor
+@CrossOrigin("*")
 public class RestaurantRest {
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
 
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -21,8 +21,14 @@ public class RestaurantRest {
     }
 
     @GetMapping("/test-say")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public String saySmth() {
         return restaurantService.saySmth();
+    }
+
+    @GetMapping("/string-list")
+    @ResponseStatus(HttpStatus.OK)
+    public List<String> stringList() {
+        return restaurantService.STRINGS();
     }
 }
