@@ -1,5 +1,6 @@
 package com.menius.tablo.controller;
 
+import com.menius.tablo.entities.dbos.RestaurantDbo;
 import com.menius.tablo.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class RestaurantRest {
 
     @GetMapping("/string-list")
     @ResponseStatus(HttpStatus.OK)
-    public List<String> stringList() {
-        return restaurantService.STRINGS();
+    public List<RestaurantDbo> restaurantList() {
+        return restaurantService.RESTAURANT_DBO();
     }
 }

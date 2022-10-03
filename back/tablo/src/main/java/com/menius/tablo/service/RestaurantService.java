@@ -1,5 +1,7 @@
 package com.menius.tablo.service;
 
+import com.menius.tablo.entities.dbos.RestaurantDbo;
+
 import java.util.List;
 
 public interface RestaurantService {
@@ -7,5 +9,7 @@ public interface RestaurantService {
 
     String saySmth();
 
-    List<String> STRINGS();
+    List<Integer> STRINGS();
+
+    List<RestaurantDbo> RESTAURANT_DBO();
 }
