@@ -161,18 +161,11 @@ components:
     Entertaiment:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-          example: e762634c-3e41-11eb-b897-0862660ccbd4
-        title:
-          type: string
-          example: some_food
-        labels:
+        availabilty:
           type: array
           items:
             type: boolean
             enum:
-              - Is deliverable
-              - Spicy
-              - Vegetarian
+              - Hookah
+              - Playground 
+              - Kid Activities
