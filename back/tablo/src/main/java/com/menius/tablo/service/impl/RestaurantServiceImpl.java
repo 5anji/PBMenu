@@ -12,4 +12,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void test() {
         System.out.println("Hello World!");
     }
+
+    @Override
+    public String saySmth() {
+        return "Hi, Guys";
+    }
 }
