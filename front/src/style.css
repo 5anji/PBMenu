@@ -1,0 +1,25 @@
+/* - Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 */
+
+/* - Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128 */
+
+html {
+  font-family: Roboto;
+}
+:root {
+  --violetDeschis: #d1bedd;
+  --violetInchis: #8b7ab8;
+  --verdeInchis: #405f5a;
+  --verdeDeschis: #c5dca0;
+  --verde: #6fb578;
+  --galben: #f5f3b9;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box; /* 1 */
+  border-width: 0; /* 2 */
+  border-style: solid; /* 2 */
+}
