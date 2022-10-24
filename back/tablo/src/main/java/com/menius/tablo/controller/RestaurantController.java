@@ -5,7 +5,6 @@ import com.menius.tablo.entities.requests.RestaurantsGetRequestDto;
 import com.menius.tablo.entities.response.RestaurantsGetResponseDto;
 import com.menius.tablo.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
