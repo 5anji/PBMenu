@@ -1,5 +1,16 @@
+<script setup>
+import { watch, ref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const visible = ref(route.name === "Home");
+watch(route, (x, y) => {
+  visible.value = x.name === "Home";
+});
+</script>
+
 <template>
-  <div class="nav">
+  <div class="nav" v-show="!visible">
     <router-link to="/">
       <img class="logo" src="../img/Logo.png" alt="menu-hub logo" />
     </router-link>
@@ -11,26 +22,17 @@
 </template>
 <style scoped lang="scss">
 .nav {
+  margin: 0;
+  backdrop-filter: blur(4px);
   position: fixed;
   width: 100%;
   z-index: 100;
-  // background: rgb(0, 0, 0);
-  // background: linear-gradient(
-  //   180deg,
-  //   rgba(52, 52, 52, 0.74) 0%,
-  //   rgba(52, 52, 52, 0.51) 20%,
-  //   rgba(52, 52, 52, 0.37) 37%,
-  //   rgba(52, 52, 52, 0.19) 57%,
-  //   rgba(52, 52, 52, 0.03) 80%,
-  //   rgba(52, 52, 52, 0) 100%
-  // );
   background-color: rgba(255, 255, 255, 0.75);
-  padding: 32px 100px;
+  padding: 20px 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  // box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
   .nav-bar {
     display: flex;
     align-items: center;
@@ -40,11 +42,24 @@
     text-decoration: none;
     color: var(--verde);
     font-size: 32px;
+    transition-property: box-shadow, transform;
+    transition: 0.3s ease;
+    will-change: box-shadow, transform;
+    &:hover {
+      color: var(--verdeInchis);
+      transform: scale(1.05);
+    }
   }
   .logo {
     width: auto;
     height: 52px;
     max-height: 100%;
+    transition-property: box-shadow, transform;
+    transition: 0.3s ease;
+    will-change: box-shadow, transform;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 </style>

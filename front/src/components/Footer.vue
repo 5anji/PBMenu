@@ -27,8 +27,8 @@
     </div>
     <div class="footer2">
       <p class="contact-us">Contact us</p>
-      <p>menuHub@gmail.com</p>
-      <p>(+373) 788 699 18</p>
+      <a class="email" href="mailto: abc@example.com">menuHub@gmail.com</a>
+      <a class="tel" href="tel: +373 788 699 18">(+373) 788 699 18</a>
     </div>
   </div>
 </template>
@@ -89,6 +89,18 @@
     margin-bottom: 32px;
     font-weight: 700;
     font-size: 18px;
+  }
+  .email {
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #767676;
+  }
+  .tel {
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #767676;
   }
 }
 </style>

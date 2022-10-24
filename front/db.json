@@ -1,0 +1,13 @@
+{
+  "list": [
+    { "title": "Andy's Pizza", "description": "Pizzeria" },
+    { "title": "Tratoria", "description": "Italian Restaurant" },
+    { "title": "Oro", "description": "Restaurant" },
+    { "title": "Granier", "description": "Cafe" },
+    { "title": "Sincer", "description": "Italian Restaurant" },
+    { "title": "Mojito", "description": "Restaurant" },
+    { "title": "Mojo", "description": "Pizzeria" },
+    { "title": "TaxiBlues", "description": "Italian Restaurant" },
+    { "title": "Momo", "description": "Asian Restaurant" }
+  ]
+}
