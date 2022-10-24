@@ -4,13 +4,13 @@
 
 This directory represents all the endpoints of restaurant entities. All endpoints
 get in touch with restaurant table from the DataBase, also it may make some updates in 
-it or process the data that comes from it. The path to the **RestaurantController**
-is *@RequestMapping("api/tablo/restaurant")*. Next there is a brief explanation of all
-endpoints:
+it or process the data that comes from it. *@RequestMapping("api/tablo/restaurant")* is 
+the path to the **RestaurantController**. Next there is a brief explanation of all endpoints:
 
 * **/get-all-restaurants**: 
   * **Method:** getAllRestaurants
-  * **Returns:** List\<RestaurantsGetResponseDto>
+  * **HTTP Method:** GET
+  * **Returns:** List\<[RestaurantsGetResponseDto](https://github.com/5anji/PBMenu/blob/back/back/tablo/src/main/java/com/menius/tablo/entities/response/RestaurantsGetResponseDto.java)>
   * **Map type:** GetMapping
   * **Response Status:** 202 *(ACCEPTED)*
   * **Parameters:**
@@ -20,8 +20,9 @@ endpoints:
 
 * **/save-restaurant** 
   * **Method:** saveRestaurant
+  * **HTTP Method:** PUT
   * **Returns:** void
-  * **Map type:** PutMapping,
+  * **Map type:** PutMapping
   * **Response Status:** 201 *(CREATED)*
   * **Parameters:** 
     * *restaurantID* - UUID
@@ -32,6 +33,7 @@ endpoints:
 
 * **/delete-restaurant**:
     * **Method:** deleteRestaurant
+    * **HTTP Method:** DELETE
     * **Returns:** void
     * **Map type:** DeleteMapping
     * **Response Status:** 200 *(OK)*
@@ -41,7 +43,8 @@ endpoints:
 
 * **/get-restaurant-by-id**:
     * **Method:** getRestaurant
-    * **Returns:** Object
+    * **HTTP Method:** GET
+    * **Returns:** Object [RestaurantsGetResponseDto](https://github.com/5anji/PBMenu/blob/back/back/tablo/src/main/java/com/menius/tablo/entities/response/RestaurantsGetResponseDto.java)
     * **Map type:** GetMapping
     * **Response Status:** 302 *(FOUND)*
     * **Parameters:**
@@ -50,6 +53,7 @@ endpoints:
 
 * **/detach-restaurant**:
     * **Method:** detachRestaurant
+    * **HTTP Method:** POST
     * **Returns:** void
     * **Map type:** PostMapping
     * **Response Status:** 200 *(OK)*
