@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20221005_create-restaurant
+      author: andrei.sarateanu
+      failOnError: true
+      changes:
+        - sql:
+            sql:  CREATE TABLE restaurant (
+              restaurant_id UUID PRIMARY KEY,
+              restaurant_name VARCHAR NOT NULL UNIQUE,
+              restaurant_status VARCHAR NOT NULL,
+              restaurant_photo TEXT NOT NULL UNIQUE
+             );

@@ -1,15 +1,16 @@
 package com.menius.tablo.service;
 
-import com.menius.tablo.entities.dbos.RestaurantDbo;
+import com.menius.tablo.entities.requests.GetNumberOfPage;
+import com.menius.tablo.entities.requests.RestaurantsGetRequestDto;
+import com.menius.tablo.entities.response.RestaurantsGetResponseDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface RestaurantService {
-    void test();
-
-    String saySmth();
-
-    List<Integer> STRINGS();
-
-    List<RestaurantDbo> RESTAURANT_DBO();
+    List<RestaurantsGetResponseDto> getAllRestaurants(GetNumberOfPage getNumberOfPage);
+    RestaurantsGetResponseDto getRestaurantById(UUID restaurantId);
+    void deleteRestaurantById(UUID restaurantId);
+    void detach (UUID restaurantId);
+    void saveRestaurant(RestaurantsGetRequestDto restaurantsGetRequestDto);
 }
