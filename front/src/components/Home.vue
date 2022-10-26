@@ -4,7 +4,18 @@ import RestaurantItem from "./RestaurantItem.vue";
 import Restaurant from "./Restaurant.vue";
 import HomeComponents from "./HomeComponents.vue";
 
-const list = ref([]);
+// const list = ref([]);
+const list = ref([
+  { title: "Andy's Pizza", description: "Pizzeria" },
+  { title: "Tratoria", description: "Italian Restaurant" },
+  { title: "Oro", description: "Restaurant" },
+  { title: "Granier", description: "Cafe" },
+  { title: "Sincer", description: "Italian Restaurant" },
+  { title: "Mojito", description: "Restaurant" },
+  { title: "Mojo", description: "Pizzeria" },
+  { title: "TaxiBlues", description: "Italian Restaurant" },
+  { title: "Momo", description: "Asian Restaurant" },
+]);
 onMounted(() => {
   fetch("http://localhost:3000/list")
     .then((response) => response.json())
