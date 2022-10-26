@@ -16,18 +16,20 @@ watch(route, (x, y) => {
     </router-link>
     <div class="nav-bar">
       <router-link class="right-bar" to="/restaurants">Restaurants</router-link>
-      <router-link class="right-bar" to="/AboutUs">About Us</router-link>
+      <router-link class="right-bar" :to="{ path: '/', hash: '#about-us' }"
+        >About Us</router-link
+      >
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 .nav {
   margin: 0;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(3px);
   position: fixed;
   width: 100%;
   z-index: 100;
-  background-color: rgba(255, 255, 255, 0.75);
+  // background-color: rgba(255, 255, 255, 0.75);
   padding: 20px 100px;
   display: flex;
   align-items: center;

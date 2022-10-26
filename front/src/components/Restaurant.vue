@@ -88,6 +88,13 @@ const tags = ["Pizza", "Vegetarian", "Vegan"];
 
 <style scoped lang="scss">
 .restaurant {
+  background-color: #ffffff;
+  // opacity: 0.4;
+  background-image: radial-gradient(
+    hsla(128, 32%, 57%, 0.3) 0.9px,
+    #ffffff 0.9px
+  );
+  background-size: 18px 18px;
   display: grid;
   grid-template-columns: 45% 55%;
   align-items: center;
@@ -97,7 +104,7 @@ const tags = ["Pizza", "Vegetarian", "Vegan"];
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 170px 96px 170px 96px;
+    padding: 170px 96px 100px 96px;
     position: relative;
     // background-image: radial-gradient(var(--verde) 0%, transparent 55%);
     .tag {
@@ -122,7 +129,7 @@ const tags = ["Pizza", "Vegetarian", "Vegan"];
       background-color: rgba(111, 181, 120, 1);
       border-radius: 40%;
       position: absolute;
-      top: 50%;
+      top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
 
@@ -140,6 +147,7 @@ const tags = ["Pizza", "Vegetarian", "Vegan"];
     position: relative;
   }
   .rest {
+    // padding-top: 96px;
     padding-left: 300px;
     display: flex;
     flex-direction: column;
@@ -187,7 +195,7 @@ const tags = ["Pizza", "Vegetarian", "Vegan"];
 }
 .food-category {
   --text-color: var(--verdeInchis);
-  --bg-color: hsl(83, 46%, 95%);
+  --bg-color: hsl(128, 32%, 95%);
 }
 
 .drink-category {
@@ -205,7 +213,7 @@ const tags = ["Pizza", "Vegetarian", "Vegan"];
   justify-content: space-around;
   align-items: center;
   // gap: 16px;
-  padding: 0 100px;
+  padding: 96px 100px;
   .btn-menu {
     padding: 32px 48px;
     // background-color: var(--violetDeschis);
@@ -239,7 +247,9 @@ const tags = ["Pizza", "Vegetarian", "Vegan"];
 }
 
 .block-menu {
+  // background-color: var(--bg-color);
   background-color: var(--bg-color);
+
   padding: 48px 100px;
   margin: 100px 0px;
   letter-spacing: 0.75px;

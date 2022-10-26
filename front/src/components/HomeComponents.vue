@@ -3,43 +3,69 @@ defineProps(["title"]);
 </script>
 
 <template>
-  <div class="home-rest">
-    <h3 class="home-rest-title">{{ title }}</h3>
-    <!-- <h3 class="home-rest-desc">{{ description }}</h3> -->
+  <div class="home-rest-wrapper">
+    <div class="home-rest">
+      <h3 class="home-rest-title">{{ title }}</h3>
+      <span class="more">More &rarr;</span>
+      <!-- <h3 class="home-rest-desc">{{ description }}</h3> -->
+    </div>
   </div>
 </template>
-<style scoped lang="scss">
-.home-rest {
-  width: 170px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  padding: 32px 48px;
-  border-radius: 8px;
-  color: var(--verdeInchis);
-  font-size: 24px;
-  font-weight: 500;
-  letter-spacing: 0.75px;
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+<style lang="scss">
+.home-rest-wrapper {
+  padding: 2rem 0.5rem;
+  background-image: radial-gradient(
+    var(--bg-color) 0%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 90% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
   transition-property: box-shadow, transform;
   transition: 0.3s ease;
   will-change: box-shadow, transform;
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-    transform: scale(1.05);
-    // transform: rotate(1deg);
-
-    transform: scale(1.05);
-    background-color: hsl(277, 32%, 95%);
-  }
-
-  .home-rest-title {
-    margin: 0;
-    color: var(--violetInchis);
+  .home-rest {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 32px 48px;
+    border-radius: 8px;
     font-size: 24px;
     font-weight: 500;
     letter-spacing: 0.75px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+
+    .home-rest-title {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 500;
+      letter-spacing: 0.75px;
+      color: var(--txt-color);
+    }
+    .more {
+      // display: none;
+      position: absolute;
+      bottom: 12px;
+      font-size: 18px;
+      color: var(--verdeInchis);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+  }
+  &:hover {
+    transform: scale(1.05);
+
+    // transition: opacity 0.5;
+    .more {
+      // display: block;
+      opacity: 1;
+    }
+    .home-rest {
+      background-color: var(--bg-color-1);
+    }
   }
 }
 </style>
