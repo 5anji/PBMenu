@@ -1,0 +1,162 @@
+  openapi: 3.0.3
+  info:
+    title: API for Tablo website
+    contact:
+      email: gitlanm@gmail.com
+    # license:
+    #   name: Apache 2.0
+    #   url: http://www.apache.org/licenses/LICENSE-2.0.html
+    version: 1.0.0
+  externalDocs:
+    description: See our source code
+    url: https://github.com/5anji/PBMenu
+  tags:
+    - name: Restaurant
+      description: Operations about restaurants
+  paths:
+    /restaurant:
+      get:
+        tags:
+          - Restaurant
+        summary: Show all restaurants
+        responses:
+          "200":
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Restaurant"
+          "400":
+            description: Invalid status value
+    /restaurant/{rest_id}:
+      get:
+        tags:
+          - Restaurant
+        summary: Find restaurant by ID
+        description: Returns a single restaurant
+        operationId: getRestaurantById
+        parameters:
+          - name: rest_id
+            in: path
+            description: ID of restaurant to return
+            required: true
+            schema:
+              type: string
+              format: uuid
+        responses:
+          "200":
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/RestaurantDetails"
+          "400":
+            description: Invalid ID supplied
+          "404":
+            description: Restaurant not found
+  components:
+    schemas:
+      Restaurant:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            example: e762634c-3e41-11eb-b897-0862660ccbd4
+          photoUrl:
+            type: string
+            description: url of the image that will be placed as rest. preview
+          name:
+            type: string
+            description: title under photo
+      RestaurantDetails:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            example: e762634c-3e41-11eb-b897-0862660ccbd4
+          photoUrl:
+            type: string
+            description: larger restaurant preview photo/logo
+          title:
+            type: string
+            format: any
+            description: title below photo
+            example: "StarBucks"
+          phone_numbers:
+            type: array
+            description: phone numbers to contact with
+            items:
+              type: string
+              format: phone_number
+            example: ["+373 79123456", "+373 79000000"]
+          addresses:
+            type: array
+            description: restaurant available adresses
+            items:
+              type: string
+              format: street_address
+            example: ["St. cel Mare str. 1/1", "Ceucari str. 66/6"]
+          description:
+            type: string
+            format: any
+            description: Small descrition of the restaurant
+            example: Lorem ipsum vuisum mapsum libi
+          food:
+            $ref: "#/components/schemas/Food"
+          drinks:
+            $ref: "#/components/schemas/Drinks"
+          entertaiment:
+            $ref: "#/components/schemas/Entertaiment"
+      Food:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            example: e762634c-3e41-11eb-b897-0862660ccbd4
+          title:
+            type: string
+            example: some_food
+          ingridients:
+            type: string
+          price: 
+            type: number
+            format: float
+            example: 66.6
+          is_deliverable:
+            type: boolean
+          is_spicy:
+            type: boolean
+          is_vegetarian:
+            type: boolean
+      Drinks:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            example: e762634c-3e41-11eb-b897-0862660ccbd4
+          title:
+            type: string
+            example: some_food
+          price: 
+            type: number
+            format: float
+            example: 66.6
+          is_deliverable:
+            type: boolean
+          is_alcoholic:
+            type: boolean
+      Entertaiment:
+        type: object
+        properties:
+          Hookah:
+            type: boolean
+          Playground :
+            type: boolean
+          Kid Activities:
+            type: boolean
