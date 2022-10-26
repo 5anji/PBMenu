@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20221007_create-entertainments.yml
+      author: andrei.sarateanu
+      failOnError: true
+      changes:
+        - sql:
+            sql:  CREATE TABLE entertainments (
+              subsidiary_id UUID NOT NULL,
+              entertainment VARCHAR NOT NULL
+              );
