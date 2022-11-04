@@ -1,0 +1,2 @@
+#! /usr/bin/bash
+java -cp /opt/menuhub/tablo_jar.jar com.menius.tablo.TabloApplication 
