@@ -8,8 +8,8 @@ Site to review menus of any restaurant in Republic of Moldova, made by a group o
 
 ## Dependencies
 
-- coming soon
+- `posgresql`
+- `openjdk11`
+- `nginx`
 
 ## Installation and Deployments
-
-- coming soon
