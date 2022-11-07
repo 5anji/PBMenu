@@ -63,6 +63,6 @@ Site to review menus of any restaurant in Republic of Moldova, made by a group o
 
 5) Access the web page by IP(ipv4):
 
-    - IP: `hostname -i`
+    - IP: `ip addr | grep -E ': enp|: wlan' -A 2`
 
     - open browser and access the link: http://xxx.xxx.xxx.xxx/
