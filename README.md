@@ -58,7 +58,7 @@ Site to review menus of any restaurant in Republic of Moldova, made by a group o
 
     ```bash
     unzip ./bin/build/dist.zip
-    mv ./dist/* /var/www/html/
+    sudo mv ./dist/* /var/www/html/
     ```
 
 5) Access the web page by IP(ipv4):
