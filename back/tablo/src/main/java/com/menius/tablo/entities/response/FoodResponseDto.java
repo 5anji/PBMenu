@@ -18,4 +18,6 @@ public class FoodResponseDto {
     private String foodIngredients;
     private RestaurantDbo restaurantDbo;
     private FoodStatus foodStatus;
+    private boolean isSpicy;
+    private boolean isVegetarian;
 }

@@ -68,7 +68,6 @@ public class RestaurantServiceImplIntegrTest {
     }
 
     @Test
-    @Disabled
     void getRestaurantById() throws Exception {
         RestaurantDbo restaurantDbo = RestaurantDbo.builder()
                 .restaurantName("Andy")
@@ -78,9 +77,8 @@ public class RestaurantServiceImplIntegrTest {
         restaurantRepository.save(restaurantDbo);
         MvcResult mvcResult = mockMvc.perform(get("/api/tablo/restaurant/get-restaurant-by-id")
                         .contentType("application/json")
-                        .param("id", restaurantDbo.getRestaurantId().toString()))
+                        .param("restaurantId", restaurantDbo.getRestaurantId().toString()))
                 .andExpect(status().isFound()).andReturn();
-
     }
 
     @Test

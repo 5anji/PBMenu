@@ -29,4 +29,8 @@ public class FoodDbo {
     private RestaurantDbo restaurantDbo;
     @Enumerated(EnumType.STRING)
     private FoodStatus foodStatus;
+    @Column(nullable = false)
+    private boolean isSpicy;
+    @Column(nullable = false)
+    private boolean isVegetarian;
 }
