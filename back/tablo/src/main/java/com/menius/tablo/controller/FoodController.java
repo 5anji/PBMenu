@@ -2,9 +2,7 @@ package com.menius.tablo.controller;
 
 import com.menius.tablo.entities.requests.FoodRequestDto;
 import com.menius.tablo.entities.requests.GetNumberOfPage;
-import com.menius.tablo.entities.requests.RestaurantsGetRequestDto;
 import com.menius.tablo.entities.response.FoodResponseDto;
-import com.menius.tablo.entities.response.RestaurantsGetResponseDto;
 import com.menius.tablo.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
