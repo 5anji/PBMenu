@@ -21,4 +21,6 @@ public class FoodRequestDto {
     private FoodStatus foodStatus;
     private boolean isSpicy;
     private boolean isVegetarian;
+    private boolean isDeliverable;
+    private double foodPrice;
 }

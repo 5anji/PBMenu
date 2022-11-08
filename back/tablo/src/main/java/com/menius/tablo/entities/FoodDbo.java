@@ -33,4 +33,8 @@ public class FoodDbo {
     private boolean isSpicy;
     @Column(nullable = false)
     private boolean isVegetarian;
+    @Column(nullable = false)
+    private double foodPrice;
+    @Column(nullable = false)
+    private boolean isDeliverable;
 }

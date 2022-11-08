@@ -21,8 +21,6 @@ import java.util.UUID;
 
 import static com.menius.tablo.entities.enms.RestaurantStatus.AVAILABLE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -79,6 +77,7 @@ public class RestaurantServiceImplIntegrTest {
                         .contentType("application/json")
                         .param("restaurantId", restaurantDbo.getRestaurantId().toString()))
                 .andExpect(status().isFound()).andReturn();
+
     }
 
     @Test
