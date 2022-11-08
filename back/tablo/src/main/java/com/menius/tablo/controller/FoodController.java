@@ -24,7 +24,7 @@ public class FoodController {
         return foodService.getAllFood(getNumberOfPage);
     }
 
-    @PutMapping("/save-food")
+    @PostMapping("/save-food")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveFood(@RequestBody FoodRequestDto foodRequestDto) {
         foodService.saveFood(foodRequestDto);
@@ -42,7 +42,13 @@ public class FoodController {
         return foodService.getFoodById(foodId);
     }
 
-    @PostMapping("/detach-food")
+    @GetMapping("/get-food-by-restaurant")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<FoodResponseDto> getFoodByRestaurant(@RequestParam UUID restaurantId, @RequestParam GetNumberOfPage getNumberOfPage){
+        return foodService.getFoodByRestaurants(restaurantId, getNumberOfPage);
+    }
+
+    @PutMapping("/detach-food")
     @ResponseStatus(HttpStatus.OK)
     public void detachFood(@RequestParam UUID foodId){
         foodService.detach(foodId);

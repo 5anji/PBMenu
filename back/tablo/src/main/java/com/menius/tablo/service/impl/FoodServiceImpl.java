@@ -3,7 +3,6 @@ package com.menius.tablo.service.impl;
 import com.menius.tablo.entities.FoodDbo;
 import com.menius.tablo.entities.RestaurantDbo;
 import com.menius.tablo.entities.enms.FoodStatus;
-import com.menius.tablo.entities.enms.RestaurantStatus;
 import com.menius.tablo.entities.requests.FoodRequestDto;
 import com.menius.tablo.entities.requests.GetNumberOfPage;
 import com.menius.tablo.entities.response.FoodResponseDto;
@@ -19,7 +18,6 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static com.menius.tablo.entities.enms.FoodStatus.AVAILABLE;
 import static com.menius.tablo.entities.enms.FoodStatus.DETACHED;
 import static java.util.stream.Collectors.toList;
 
@@ -39,6 +37,8 @@ public class FoodServiceImpl implements FoodService {
                 .restaurantDbo(foodRequestDto.getRestaurantDbo())
                 .isSpicy(foodRequestDto.isSpicy())
                 .isVegetarian(foodRequestDto.isVegetarian())
+                .foodPrice(foodRequestDto.getFoodPrice())
+                .isDeliverable(foodRequestDto.isDeliverable())
                 .build());
     }
 
@@ -62,6 +62,8 @@ public class FoodServiceImpl implements FoodService {
                 .foodStatus(foodDbo.getFoodStatus())
                 .isVegetarian(foodDbo.isVegetarian())
                 .isSpicy(foodDbo.isSpicy())
+                .foodPrice(foodDbo.getFoodPrice())
+                .isDeliverable(foodDbo.isDeliverable())
                 .build();
     }
 
@@ -96,26 +98,13 @@ public class FoodServiceImpl implements FoodService {
         return foodRepository.findFoodDboByRestaurantDbo(restaurantDbo, PageRequest.of(getNumberOfPage.getPages(), getNumberOfPage.getNrOfItems()))
                 .stream()
                 .filter(isAvailable())
-                .map(getFoodDboFoodResponseDtoFunction())
+                .map(DboToDto())
                 .collect(toList());
     }
 
     @Override
     public void detach(UUID foodId) {
         foodRepository.findById(foodId).ifPresent(f -> f.setFoodStatus(DETACHED));
-    }
-
-    private static Function<FoodDbo, FoodResponseDto> getFoodDboFoodResponseDtoFunction() {
-        return foodDbo -> FoodResponseDto.builder()
-                .isSpicy(foodDbo.isSpicy())
-                .foodStatus(foodDbo.getFoodStatus())
-                .foodPhoto(foodDbo.getFoodPhoto())
-                .foodName(foodDbo.getFoodName())
-                .foodIngredients(foodDbo.getFoodIngredients())
-                .foodId(foodDbo.getFoodId())
-                .isVegetarian(foodDbo.isVegetarian())
-                .restaurantDbo(foodDbo.getRestaurantDbo())
-                .build();
     }
 
     private static Function<FoodDbo, FoodResponseDto> DboToDto() {
@@ -128,6 +117,8 @@ public class FoodServiceImpl implements FoodService {
                 .foodId(foodDbo.getFoodId())
                 .isVegetarian(foodDbo.isVegetarian())
                 .restaurantDbo(foodDbo.getRestaurantDbo())
+                .foodPrice(foodDbo.getFoodPrice())
+                .isDeliverable(foodDbo.isDeliverable())
                 .build();
     }
 
