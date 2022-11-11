@@ -84,7 +84,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RestaurantsGetResponseDto"
+                properties:
+                  restaurant:
+                    $ref: "#/components/schemas/Restaurant"
+                  subsidiaries:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Subsidiary"
+                  food:
+                    $ref: "#/components/schemas/Food"
+                  drinks:
+                    $ref: "#/components/schemas/Drink"
         "400":
           description: Invalid ID supplied
         "404":
@@ -171,20 +181,7 @@ components:
           format: any
           description: Small descrition of the restaurant
           example: Lorem ipsum vuisum mapsum libi
-    RestaurantsGetResponseDto:
-      type: object
-      properties:
-        restaurant:
-          $ref: "#/components/schemas/Restaurant"
-        subsidiaries:
-          type: array
-          items:
-            $ref: "#/components/schemas/SubsidiariesDto"
-        food:
-          $ref: "#/components/schemas/FoodRequestDto"
-        drinks:
-          $ref: "#/components/schemas/DrinksRequestDto"
-    FoodRequestDto:
+    Food:
       type: object
       properties:
         foodId:
@@ -217,7 +214,7 @@ components:
           type: boolean
         isVegetarian:
           type: boolean
-    DrinksRequestDto:
+    Drink:
       type: object
       properties:
         drinkId:
@@ -257,7 +254,7 @@ components:
           type: integer
         nrOfItems:
           type: integer
-    SubsidiariesDto:
+    Subsidiary:
       type: object
       properties:
         subsidiaryId:
