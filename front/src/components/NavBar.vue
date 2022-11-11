@@ -1,18 +1,26 @@
 <script setup>
-import { watch, ref } from "vue";
+import { watch, ref, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
+
+const scrollRef = ref({});
+const props = defineProps(["forceShow"]);
+
+// const onEnter = () => {};
+
+// const onExit = () => {};
 
 const route = useRoute();
 const visible = ref(route.name === "Home");
-watch(route, (x, y) => {
+watch(route, (x) => {
   visible.value = x.name === "Home";
 });
 </script>
 
 <template>
-  <div class="nav" v-show="!visible">
+  <div class="nav" v-show="!visible || props.forceShow">
     <router-link to="/">
       <img class="logo" src="../img/Logo.png" alt="menu-hub logo" />
+      <!-- {{ currentSection }} -->
     </router-link>
     <div class="nav-bar">
       <router-link class="right-bar" to="/restaurants">Restaurants</router-link>
@@ -27,14 +35,16 @@ watch(route, (x, y) => {
   margin: 0;
   backdrop-filter: blur(3px);
   position: fixed;
+
   width: 100%;
   z-index: 100;
-  // background-color: rgba(255, 255, 255, 0.75);
   padding: 20px 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  @media screen and (max-width: 544px) {
+    // width: 100vh;
+  }
   .nav-bar {
     display: flex;
     align-items: center;

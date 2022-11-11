@@ -1,3 +1,7 @@
+<script setup>
+import { Icon } from "@iconify/vue";
+</script>
+
 <template>
   <div class="footer">
     <div class="footer1">
@@ -7,22 +11,22 @@
       <ul class="social-links">
         <li>
           <a class="footer-link" href="#"
-            ><img class="social-icon" src="../img/instagram-logo.png" />
+            ><Icon class="social-icon" icon="uil:instagram" />
           </a>
         </li>
         <li>
           <a class="footer-link" href="#"
-            ><img class="social-icon" src="../img/facebook-logo.png"
+            ><Icon class="social-icon" icon="uil:facebook-f"
           /></a>
         </li>
         <li>
           <a class="footer-link" href="#"
-            ><img class="social-icon" src="../img/twitter-logo.png"
+            ><Icon class="social-icon" icon="uil:twitter-alt"
           /></a>
         </li>
       </ul>
       <p class="copyright">
-        Copyright &copy; 2022 by Omnifood, Inc. All rights reserved.
+        Copyright &copy; 2022 by MenuHub, Inc. All rights reserved.
       </p>
     </div>
     <div class="footer2">
@@ -43,6 +47,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 100px;
+  @media screen and (max-width: 544px) {
+    padding: 128px 32px;
+    gap: 32px;
+  }
 
   .footer1 {
     display: flex;
@@ -54,6 +62,9 @@
       width: auto;
       height: 52px;
       max-height: 100%;
+      @media screen and (max-width: 544px) {
+        height: 48px;
+      }
     }
     .social-links {
       padding: 0;
@@ -66,6 +77,7 @@
     .social-icon {
       height: 24px;
       width: 24px;
+      color: #767676;
     }
     .copyright {
       margin: 0;
@@ -73,6 +85,9 @@
       line-height: 1.6;
       color: #767676;
       grid-row: 3;
+      @media screen and (max-width: 544px) {
+        text-align: start;
+      }
     }
   }
   .footer2 {
@@ -80,6 +95,9 @@
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
+    @media screen and (max-width: 544px) {
+      // align-items: flex-end;
+    }
   }
   p {
     margin: 0;

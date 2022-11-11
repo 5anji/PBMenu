@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import RestaurantItem from "./RestaurantItem.vue";
 import Restaurant from "./Restaurant.vue";
 import HomeComponents from "./HomeComponents.vue";
@@ -16,46 +16,46 @@ const list = ref([
   { title: "TaxiBlues", description: "Italian Restaurant" },
   { title: "Momo", description: "Asian Restaurant" },
 ]);
+// onMounted(() => {
+//   fetch("http://localhost:3000/list")
+//     .then((response) => response.json())
+//     .then((data) => (list.value = data));
+// });
+
+const emit = defineEmits(["show-nav", "show-tipa"]);
+
+const currentSection = ref("");
+const tipa = ref(false);
+
+watch(currentSection, (val) => {
+  emit("show-nav", val !== "home");
+});
+
 onMounted(() => {
-  fetch("http://localhost:3000/list")
-    .then((response) => response.json())
-    .then((data) => (list.value = data));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.target.getAttribute("class") === "home") {
+        if (entry.intersectionRatio > 0) {
+          console.log("1111111");
+          emit("show-tipa", false);
+        } else {
+          console.log("000000000000");
+          emit("show-tipa", true);
+        }
+      }
+
+      if (entry.intersectionRatio > 0) {
+        currentSection.value = entry.target.getAttribute("class");
+      }
+    });
+  });
+  document.querySelectorAll("section").forEach((section) => {
+    observer.observe(section);
+  });
 });
 </script>
-
 <template>
-  <!-- <div class="home-section">
-    <div class="home-home">
-      <div class="home">
-        <div class="home-desc">
-          <div>
-            <img class="home-desc-img" src="../img/Logo.png" />
-          </div>
-          <h3 class="home-desc-text">
-            Your girlfriend has no idea what she wants to eat? We can help with
-            that!
-          </h3>
-        </div>
-        <div class="home-img">
-          <div class="home-photo">
-            <div class="home-photo-1">
-              <div class="home-photo-2">
-                <img src="../img/davey-gravy-DmO662qvWO8-unsplash.jpg" />
-              </div>
-            </div>
-          </div>
-          <template v-for="item in list.slice(3, 10)">
-            <router-link
-              class="home-rest"
-              :to="{ name: 'Restaurant', params: { id: item } }"
-            >
-              <home-components :title="item.title" />
-            </router-link>
-          </template>
-        </div>
-      </div>
-    </div> -->
-  <div class="home">
+  <section class="home">
     <div class="home-sec-img">
       <img class="home-img" src="../img/Logo.png" />
     </div>
@@ -68,16 +68,29 @@ onMounted(() => {
     <router-link class="details" :to="{ path: '/', hash: '#feature' }"
       >Details &darr;</router-link
     >
-  </div>
-  <div class="featured-in" id="feature">
-    <h2 class="heading-featured-in">As featured in</h2>
+  </section>
+  <!-- <section class="nav-home" ref="nav" :class="{ sticky: x }">
+    <router-link to="/">
+      <img class="logo-home" src="../img/Logo.png" alt="menu-hub logo" />
+    </router-link>
+    <div class="nav-bar-home">
+      <router-link class="right-bar-home" to="/restaurants"
+        >Restaurants</router-link
+      >
+      <router-link class="right-bar-home" :to="{ path: '/', hash: '#about-us' }"
+        >About Us</router-link
+      >
+    </div>
+  </section> -->
+  <section class="featured-in" id="feature">
+    <h1 class="heading-featured-in">As featured in</h1>
     <div class="logos">
       <img src="../img/faf_logo2.png" alt="FAF logo" />
       <img class="noction" src="../img/IRPFC-logo-1.png" alt="Noction logo" />
       <img src="../img/utm-logo.png" alt="UTM logo" />
     </div>
-  </div>
-  <div class="top">
+  </section>
+  <section class="top">
     <h1 class="top-description">MenuHub helps you to choose the best menu!</h1>
     <div class="top-restaurants">
       <div v-for="item in list.slice(0, 3)">
@@ -95,15 +108,17 @@ onMounted(() => {
     <router-link class="see-more" to="/restaurants"
       >See more &rarr;</router-link
     >
-  </div>
-  <div class="testimonials-section">
-    <h1 class="test-name">Aici ceva despre ceva</h1>
+  </section>
+  <section class="testimonials-section">
+    <h1 class="test-name">Testimonials</h1>
     <div class="testimonials">
       <div class="gallery">
-        <img
-          class="gallery-img"
-          src="../img/louis-hansel--rUVo0vua1M-unsplash1.jpg"
-        />
+        <div class="gal">
+          <img
+            class="gallery-img"
+            src="../img/louis-hansel--rUVo0vua1M-unsplash1.jpg"
+          />
+        </div>
       </div>
 
       <div class="testimonial-info">
@@ -169,12 +184,14 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="about-us" id="about-us">
+  <section class="about-us" id="about-us">
     <div class="about-us-info">
       <h1 class="about-us-desc">About Us</h1>
-      <p class="about-us-p">We are</p>
+      <p class="about-us-p">
+        We are Software Engineers students from TUM university...
+      </p>
     </div>
     <div class="team">
       <div class="adelia">
@@ -208,28 +225,34 @@ onMounted(() => {
         <h2 class="member-post">Project Manager</h2>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <style scoped lang="scss">
 .home {
   position: relative;
   height: 100vh;
+  width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 100px;
   background-color: #ffffff;
-  // opacity: 0.4;
   background-image: radial-gradient(
     hsla(256, 30%, 60%, 0.3) 0.9px,
     #ffffff 0.9px
   );
   background-size: 18px 18px;
-
+  @media screen and (max-width: 544px) {
+    height: 70vh;
+  }
   .home-sec-img {
     position: relative;
+
     .home-img {
       height: 150px;
+      @media screen and (max-width: 544px) {
+        height: 75px;
+      }
     }
   }
   .details {
@@ -243,11 +266,12 @@ onMounted(() => {
     transition: 0.3s ease;
     will-change: box-shadow, transform;
     cursor: pointer;
-    animation: wiggle 1.5s ease infinite;
+    animation: wiggle 2s ease infinite;
+    @media screen and (max-width: 544px) {
+      display: none;
+    }
 
-    /* Keyframes */
     @keyframes wiggle {
-      // 0%,
       0%,
       20%,
       50%,
@@ -262,6 +286,9 @@ onMounted(() => {
         transform: translateY(-15px);
       }
     }
+    @media screen and (max-width: 544px) {
+    }
+
     &:hover {
       animation-play-state: paused;
     }
@@ -275,8 +302,11 @@ onMounted(() => {
       --bg-color-1: hsl(128, 32%, 95%);
       --txt-color: #405f5a;
       top: 95px;
-      // transform: scale(0.9);
       transform: rotate(5deg);
+      @media screen and (max-width: 544px) {
+        top: 95px;
+        transform: rotate(0deg);
+      }
     }
     &:nth-of-type(2) {
       --bg-color: #8b7ab8;
@@ -286,6 +316,11 @@ onMounted(() => {
       top: 220px;
       right: 190px;
       transform: rotate(-5deg);
+      @media screen and (max-width: 544px) {
+        top: 180px;
+        right: 30px;
+        transform: rotate(5deg);
+      }
     }
 
     &:nth-of-type(3) {
@@ -296,14 +331,21 @@ onMounted(() => {
       --bg-color-1: hsl(128, 32%, 95%);
 
       transform: rotate(5deg);
+      @media screen and (max-width: 544px) {
+        bottom: 180px;
+        right: 30px;
+      }
     }
     &:nth-of-type(4) {
-      bottom: 110px;
+      bottom: 100px;
       --bg-color: rgba(201, 195, 29, 1);
       --txt-color: rgba(201, 195, 29, 1);
       --bg-color-1: hsl(58, 75%, 95%);
 
       transform: rotate(-5deg);
+      @media screen and (max-width: 544px) {
+        bottom: 95px;
+      }
     }
     &:nth-of-type(5) {
       top: 270px;
@@ -312,7 +354,11 @@ onMounted(() => {
       --txt-color: rgba(201, 195, 29, 1);
       --bg-color-1: hsl(58, 75%, 95%);
 
-      transform: rotate(-5deg) scale(0.9);
+      transform: rotate(-5deg);
+      @media screen and (max-width: 544px) {
+        top: 180px;
+        left: 30px;
+      }
     }
     &:nth-of-type(6) {
       bottom: 190px;
@@ -322,6 +368,10 @@ onMounted(() => {
       --bg-color-1: hsl(277, 32%, 95%);
 
       transform: rotate(3deg);
+      @media screen and (max-width: 544px) {
+        bottom: 180px;
+        left: 30px;
+      }
     }
   }
 }
@@ -329,6 +379,10 @@ onMounted(() => {
 .featured-in {
   padding: 48px 0 32px 0;
   margin-bottom: 96px;
+  @media screen and (max-width: 544px) {
+    margin: 0;
+    margin-bottom: 48px;
+  }
 
   .heading-featured-in {
     font-size: 18px;
@@ -338,35 +392,73 @@ onMounted(() => {
     text-align: center;
     margin-bottom: 24px;
     color: #888;
+    @media screen and (max-width: 544px) {
+      font-size: 10px;
+    }
   }
 
   .logos {
     margin: 0 400px;
     display: flex;
     justify-content: space-around;
+    @media screen and (max-width: 544px) {
+      margin: 0 10px;
+    }
   }
 
   .logos img {
     height: 64px;
     filter: brightness(0);
     opacity: 50%;
+    @media screen and (max-width: 544px) {
+      height: 32px;
+    }
+  }
+}
+.top {
+  padding: 96px 100px;
+  @media screen and (max-width: 1555px) {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+  @media screen and (max-width: 544px) {
+    padding: 32px;
   }
 }
 .top-description {
   font-weight: 700;
   font-size: 48px;
   color: var(--verdeInchis);
-  margin-left: 100px;
+  // margin-left: 100px;
   letter-spacing: 0.75px;
+  @media screen and (max-width: 544px) {
+    font-size: 36px;
+    margin: 0;
+    margin-left: 24px;
+  }
 }
 .top-restaurants {
-  margin: 96px 100px;
   display: grid;
+  margin: 96px 0px;
+
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
   justify-content: center;
   font-size: 24px;
   gap: 100px;
+  @media screen and (max-width: 1555px) {
+    gap: 48px;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 544px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    margin: 64px 0;
+    gap: 64px;
+  }
 
   .restaurant-info {
     text-decoration: none;
@@ -386,6 +478,9 @@ onMounted(() => {
   font-size: 24px;
   text-align: center;
   margin-bottom: 96px;
+  @media screen and (max-width: 544px) {
+  }
+
   &:hover {
     transform: scale(1.05);
   }
@@ -399,9 +494,13 @@ onMounted(() => {
     #ffffff00 0.9px
   );
   background-size: 18px 18px;
-  // margin-bottom: 128px;
   padding: 96px 96px 96px 48px;
   box-shadow: hsl(277deg 32% 95%) 0px 0px 20px 10px;
+  @media screen and (max-width: 544px) {
+    padding: 48px 0;
+    margin-bottom: 32px;
+  }
+
   .test-name {
     margin: 0;
     font-weight: 700;
@@ -410,66 +509,136 @@ onMounted(() => {
     padding-bottom: 32px;
     padding-left: 80px;
     letter-spacing: 0.75px;
-    // text-align: center;
+    @media screen and (max-width: 544px) {
+      padding: 32px;
+      font-size: 36px;
+
+      // margin: 32px;
+    }
   }
 
   .testimonials {
-    // background-color: white;
-    // border-radius: 2rem;
     display: flex;
     gap: 32px;
     align-items: center;
+    @media screen and (max-width: 544px) {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
     .gallery {
       padding: 18px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-image: radial-gradient(
         var(--violetInchis) 40%,
         transparent 70%,
         transparent 100%
       );
-      .gallery-img {
-        height: 550px;
-        border-radius: 1.5rem;
-        // align-content: flex-end;
+      @media screen and (max-width: 544px) {
+        grid-row: 2;
+        margin: 0 auto;
+        padding: 0 55px;
+
+        // width: 350px;
+      }
+      .gal {
+        @media screen and (max-width: 544px) {
+          grid-row: 2;
+          // padding-top: 32px;
+          // width: 350px;
+        }
+
+        .gallery-img {
+          height: 550px;
+          width: auto;
+
+          border-radius: 1.5rem;
+          @media screen and (max-width: 544px) {
+            height: 300px;
+          }
+        }
       }
     }
 
     .testimonial-info {
-      // padding: 64px;
       padding-right: 48px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 64px;
       justify-content: center;
       align-items: center;
+      @media screen and (max-width: 1555px) {
+        gap: 48px;
+        padding: 0;
+      }
+      @media screen and (max-width: 544px) {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        justify-content: center;
+        padding: 0;
+        padding-bottom: 32px;
+        justify-self: center; // margin: 32px;
+      }
 
+      .test-border {
+        @media screen and (max-width: 544px) {
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+      }
       .test-el {
         cursor: pointer;
         background-color: white;
         border-radius: 1rem;
         padding: 32px 32px;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 25px 0px;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+          rgba(17, 17, 26, 0.05) 0px 8px 32px;
         transition-property: box-shadow, transform;
         transition: 0.3s ease;
         will-change: box-shadow, transform;
 
+        @media screen and (max-width: 544px) {
+          margin: 0;
+          padding: 0;
+          // width: 300px;
+          background-color: transparent;
+          box-shadow: none;
+          padding: 0;
+        }
+
         &:hover {
-          box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
-            rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-            rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
           transform: scale(1.15);
+          @media screen and (max-width: 544px) {
+            box-shadow: none;
+            transform: none;
+            cursor: none;
+          }
         }
       }
       .testimonial {
         margin: 0;
         display: grid;
         grid-template-columns: 1fr 2fr;
+        @media screen and (max-width: 1555px) {
+          gap: 24px;
+        }
+        @media screen and (max-width: 544px) {
+          // column-gap: 24px;
+        }
 
         .testimonial-img {
           width: 80px;
           border-radius: 8px;
           grid-row: 1/3;
-          // align-self: center;
           margin-top: 8px;
+          @media screen and (max-width: 544px) {
+            display: block;
+            // margin: 0 auto;
+            margin-top: 8px;
+          }
         }
 
         .testimonial-text {
@@ -479,19 +648,29 @@ onMounted(() => {
           line-height: 1.8;
           margin-bottom: 16px;
           color: var(--violetInchis);
-          font-weight: 500;
+          font-weight: 400;
+          @media screen and (max-width: 544px) {
+            font-size: 18px;
+          }
+        }
+        .testimonial-name {
+          color: #767676;
+          @media screen and (max-width: 544px) {
+            margin: 0;
+            font-size: 16px;
+          }
         }
       }
     }
   }
 }
 .about-us {
-  margin: 200px 96px;
-  // margin-bottom: 500px;
+  padding: 210px 96px;
+  @media screen and (max-width: 544px) {
+    padding: 64px 32px 128px 32px;
+  }
 
   .about-us-info {
-    // padding-top: 96px;
-
     .about-us-desc {
       margin: 0;
       font-weight: 700;
@@ -499,40 +678,66 @@ onMounted(() => {
       color: var(--verdeInchis);
       padding-bottom: 24px;
       letter-spacing: 0.75px;
+      @media screen and (max-width: 544px) {
+        font-size: 36px;
+        // padding-bottom: 32px;
+      }
     }
     .about-us-p {
       margin: 0;
-      // padding-bottom: 64px;
-      color: var(--verde);
+      // color: var(--verde);
+      color: #767676;
       font-size: 24px;
       font-weight: 500;
       padding-right: 500px;
       padding-bottom: 48px;
+      @media screen and (max-width: 544px) {
+        font-size: 24px;
+        padding: 0;
+        padding-bottom: 48px;
+      }
     }
   }
   .team {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // padding-top: 128px;
     gap: 48px;
     cursor: pointer;
+    @media screen and (max-width: 1555px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    @media screen and (max-width: 544px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
 
     .adelia {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
       transition-property: box-shadow, transform;
       transition: 0.3s ease;
       will-change: box-shadow, transform;
       filter: grayscale(100%);
       opacity: 90%;
+      @media screen and (max-width: 544px) {
+        opacity: 100%;
+        filter: grayscale(0%);
+      }
       &:hover {
         transform: scale(1.3) rotate(1deg);
         filter: grayscale(0%);
         opacity: 100%;
+        @media screen and (max-width: 544px) {
+          transform: none;
+          cursor: none;
+        }
       }
       &:hover:nth-of-type(2n) {
         transform: scale(1.3) rotate(-1deg);
@@ -541,25 +746,33 @@ onMounted(() => {
     .team-img {
       height: 200px;
       border-radius: 16px;
-
       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+      @media screen and (max-width: 544px) {
+        height: 110px;
+      }
     }
     .member-name {
       margin: 0;
       font-size: 22px;
       font-weight: 500;
-      color: var(--verde);
-      padding-top: 8px;
-
-      // letter-spacing: 0.75px;
+      color: var(--verdeInchis);
+      padding-top: 1px;
+      transform: none;
+      @media screen and (max-width: 544px) {
+        font-size: 18px;
+      }
     }
     .member-post {
       margin: 0;
       font-weight: 400;
       font-size: 18px;
       letter-spacing: 0.75px;
+      color: #767676;
       color: var(--violetInchis);
+      @media screen and (max-width: 544px) {
+        font-size: 16px;
+      }
     }
   }
 }

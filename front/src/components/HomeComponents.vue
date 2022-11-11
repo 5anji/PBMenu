@@ -25,6 +25,10 @@ defineProps(["title"]);
   transition-property: box-shadow, transform;
   transition: 0.3s ease;
   will-change: box-shadow, transform;
+  @media screen and (max-width: 544px) {
+    padding: 1.1rem 0rem;
+  }
+
   .home-rest {
     position: relative;
     display: flex;
@@ -37,16 +41,20 @@ defineProps(["title"]);
     font-weight: 500;
     letter-spacing: 0.75px;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-
+    @media screen and (max-width: 544px) {
+      padding: 18px 24px;
+    }
     .home-rest-title {
       margin: 0;
       font-size: 2.5rem;
       font-weight: 500;
       letter-spacing: 0.75px;
       color: var(--txt-color);
+      @media screen and (max-width: 544px) {
+        font-size: 20px;
+      }
     }
     .more {
-      // display: none;
       position: absolute;
       bottom: 12px;
       font-size: 18px;
@@ -57,10 +65,7 @@ defineProps(["title"]);
   }
   &:hover {
     transform: scale(1.05);
-
-    // transition: opacity 0.5;
     .more {
-      // display: block;
       opacity: 1;
     }
     .home-rest {
