@@ -13,8 +13,10 @@ externalDocs:
 tags:
   - name: Restaurant
     description: Operations about restaurants
+  - name: Subsidiary
+    description: Operations about subsidiary
 paths:
-  /get-all-restaurants:
+  /restaurant/get-all:
     get:
       tags:
         - Restaurant
@@ -38,7 +40,7 @@ paths:
                   $ref: "#/components/schemas/Restaurant"
         "400":
           description: Invalid status value
-  /save-restaurant:
+  /restaurant/save:
     post:
       tags:
         - Restaurant
@@ -55,7 +57,7 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
-  /get-restaurant-by-id:
+  /restaurant/get-by-id:
     get:
       tags:
         - Restaurant
@@ -81,7 +83,7 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Restaurant not found
-  /delete-restaurant:
+  /restaurant/delete:
     delete:
       tags:
         - Restaurant
@@ -102,7 +104,7 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Restaurant not found
-  /detach-restaurant:
+  /restaurant/detach:
     put:
       tags:
         - Restaurant
@@ -132,6 +134,9 @@ components:
           type: string
           format: uuid
           example: e762634c-3e41-11eb-b897-0862660ccbd4
+        restaurantLogoUrl:
+          type: string
+          description: url of the image that will be placed as rest. preview
         photoUrl:
           type: string
           description: url of the image that will be placed as rest. preview
@@ -144,53 +149,43 @@ components:
             - AVAILABLE
             - DETACHED
           description: Current restaurant status
-    RestaurantsGetResponseDto:
-      type: object
-      properties:
-        restaurantId:
+        pricing:
+          type: integer
+          example: 4
+        phone_number:
           type: string
-          format: uuid
-          example: e762634c-3e41-11eb-b897-0862660ccbd4
-        restaurantName:
+          description: phone numbers to contact with
+          example: "+373 79123456"
+        email:
           type: string
-          format: any
-          description: title below photo
-          example: "StarBucks"
-        restaurantPhoto:
-          type: string
-          description: larger restaurant preview photo/logo
-        restaurantStatus:
-          type: string
-          enum:
-            - AVAILABLE
-            - DETACHED
-          description: Current restaurant status
-        # phone_numbers:
-        #   type: array
-        #   description: phone numbers to contact with
-        #   items:
-        #     type: string
-        #     format: phone_number
-        #   example: ["+373 79123456", "+373 79000000"]
+          description: mail address to contact with
+          example: "qwerty@gmail.com"
         # addresses:
         #   type: array
         #   description: restaurant available adresses
         #   items:
         #     type: string
         #     format: street_address
-        #   example: ["St. cel Mare str. 1/1", "Ceucari str. 66/6"]
-        # description:
-        #   type: string
-        #   format: any
-        #   description: Small descrition of the restaurant
-        #   example: Lorem ipsum vuisum mapsum libi
-        # food:
-        #   $ref: "#/components/schemas/Food"
-        # drinks:
-        #   $ref: "#/components/schemas/Drinks"
-        # entertaiment:
-        #   $ref: "#/components/schemas/Entertaiment"
-    Food:
+          # example: ["St. cel Mare str. 1/1", "Ceucari str. 66/6"]
+        description:
+          type: string
+          format: any
+          description: Small descrition of the restaurant
+          example: Lorem ipsum vuisum mapsum libi
+    RestaurantsGetResponseDto:
+      type: object
+      properties:
+        restaurant:
+          $ref: "#/components/schemas/Restaurant"
+        subsidiaries:
+          type: array
+          items:
+            $ref: "#/components/schemas/SubsidiariesDbo"
+        food:
+          $ref: "#/components/schemas/FoodRequestDto"
+        drinks:
+          $ref: "#/components/schemas/DrinksRequestDto"
+    FoodRequestDto:
       type: object
       properties:
         foodId:
@@ -204,8 +199,10 @@ components:
           type: string
         foodIngredients:
           type: string
-        restaurantDbo:
-          $ref: "#/components/schemas/Restaurant"
+        restaurantId:
+          type: string
+          format: uuid
+          example: e762634c-3e41-11eb-b897-0862660ccbd4
         foodStatus:
           type: string
           enum:
@@ -221,7 +218,7 @@ components:
           type: boolean
         isVegetarian:
           type: boolean
-    Drinks:
+    DrinksRequestDto:
       type: object
       properties:
         drinkId:
@@ -231,7 +228,8 @@ components:
         drinkName:
           type: string
           example: some_food
-
+        drinkPhoto:
+          type: string
         drinkPrice:
           type: number
           format: float
@@ -240,8 +238,10 @@ components:
           type: boolean
         isAlcoholic:
           type: boolean
-        restaurantDbo:
-          $ref: "#/components/schemas/Restaurant"
+        restaurantId:
+          type: string
+          format: uuid
+          example: e762634c-3e41-11eb-b897-0862660ccbd4
     Entertaiment:
       type: object
       properties:
@@ -268,12 +268,16 @@ components:
         subsidiaryName:
           type: string
           example: subsidiary name
+        phone_number:
+          type: string
+          description: phone numbers to contact with
+          example: "+373 79123456"
         address:
           type: string
-        subsidiaryPhoto:
-          type: string
+          example: "St. cel Mare str. 1/1"
         schedule:
           type: string
+          example: "7:00 - 20:00"
         entertainments:
           type: array
           description: list of available entertaiments
