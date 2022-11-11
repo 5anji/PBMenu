@@ -179,7 +179,7 @@ components:
         subsidiaries:
           type: array
           items:
-            $ref: "#/components/schemas/SubsidiariesDbo"
+            $ref: "#/components/schemas/SubsidiariesDto"
         food:
           $ref: "#/components/schemas/FoodRequestDto"
         drinks:
@@ -257,7 +257,7 @@ components:
           type: integer
         nrOfItems:
           type: integer
-    SubsidiariesDbo:
+    SubsidiariesDto:
       type: object
       properties:
         subsidiaryId:
@@ -267,7 +267,7 @@ components:
         subsidiaryName:
           type: string
           example: subsidiary name
-        phone_number:
+        phoneNumber:
           type: string
           description: phone numbers to contact with
           example: "+373 79123456"
@@ -282,3 +282,7 @@ components:
           description: list of available entertaiments
           items:
             $ref: "#/components/schemas/Entertaiment"
+        restaurantId:
+          type: string
+          format: uuid
+          example: e762634c-3e41-11eb-b897-0862660ccbd4
