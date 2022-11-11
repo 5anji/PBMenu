@@ -21,13 +21,19 @@ paths:
       tags:
         - Restaurant
       summary: Show all restaurants
-      requestBody:
-        description: Restaurant schema as input
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GetNumberOfPage"
+      parameters:
+        - in: query
+          name: pages
+          required: true
+          schema:
+            type: integer
+          description: The number of pages
+        - in: query
+          name: nrOfItems
+          required: true
+          schema:
+            type: integer
+          description: The numbers of items to return
 
       responses:
         "200":
@@ -65,8 +71,8 @@ paths:
       description: Returns a single restaurant
       operationId: getRestaurantById
       parameters:
-        - name: restaurantId
-          in: path
+        - in: query
+          name: restaurantId
           description: ID of restaurant to return
           required: true
           schema:
@@ -90,8 +96,8 @@ paths:
       summary: Delete restaurant by ID
       description: Returns a single restaurant
       parameters:
-        - name: restaurantId
-          in: path
+        - in: query
+          name: restaurantId
           description: ID of restaurant to return
           required: true
           schema:
@@ -111,9 +117,9 @@ paths:
       summary: Update restaurant status
       description: Returns a single restaurant
       parameters:
-        - name: restaurantId
-          in: path
-          description: ID of restaurant to update
+        - in: query
+          name: restaurantId
+          description: ID of restaurant to return
           required: true
           schema:
             type: string
@@ -160,13 +166,6 @@ components:
           type: string
           description: mail address to contact with
           example: "qwerty@gmail.com"
-        # addresses:
-        #   type: array
-        #   description: restaurant available adresses
-        #   items:
-        #     type: string
-        #     format: street_address
-          # example: ["St. cel Mare str. 1/1", "Ceucari str. 66/6"]
         description:
           type: string
           format: any
@@ -246,8 +245,8 @@ components:
       type: object
       properties:
         Entertaiment:
-          type: boolean
-          enum:        
+          type: string
+          enum:
             - Hookah
             - Playground
             - Kid Activities
@@ -283,4 +282,3 @@ components:
           description: list of available entertaiments
           items:
             $ref: "#/components/schemas/Entertaiment"
-
