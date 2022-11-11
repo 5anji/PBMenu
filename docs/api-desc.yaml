@@ -226,6 +226,13 @@ components:
           example: some_food
         drinkPhoto:
           type: string
+        drinkIngredients:
+          type: string
+        drinkStatus:
+          type: string
+          enum:
+            - AVAILABLE
+            - DETACHED
         drinkPrice:
           type: number
           format: float
