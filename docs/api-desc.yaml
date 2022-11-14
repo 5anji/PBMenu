@@ -1,4 +1,5 @@
 openapi: 3.0.3
+
 info:
   title: API for Tablo website
   contact:
@@ -7,21 +8,28 @@ info:
     name: GPLv3
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
   version: 1.0.0
+
 externalDocs:
   description: See our source code
   url: https://github.com/5anji/PBMenu
+
 tags:
   - name: Restaurant
     description: Operations about restaurants
+  - name: Food
+    description: Operations about food
+  - name: Drinks
+    description: Operations about drinks
   - name: Subsidiary
     description: Operations about subsidiary
+
 paths:
   /restaurant:
     get:
       tags:
         - Restaurant
       summary: Show all restaurants
-      operationId: getRestaurantById
+      operationId: getRestaurantAll
       parameters:
         - in: query
           name: pages
@@ -69,8 +77,7 @@ paths:
       tags:
         - Restaurant
       summary: Find restaurant by ID
-      description: Returns a single restaurant
-      operationId: getRestaurantById
+      operationId: getRestaurant
       parameters:
         - in: path
           name: restaurantId
@@ -104,8 +111,7 @@ paths:
       tags:
         - Restaurant
       summary: Delete restaurant by ID
-      description: Returns a single restaurant
-      operationId: getRestaurantById
+      operationId: deleteRestaurant
       parameters:
         - in: path
           name: restaurantId
@@ -125,8 +131,7 @@ paths:
       tags:
         - Restaurant
       summary: Update restaurant status
-      description: Returns a single restaurant
-      operationId: getRestaurantById
+      operationId: detachRestaurant
       parameters:
         - in: path
           name: restaurantId
@@ -142,6 +147,385 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Restaurant not found
+  /restaurant/{restaurantId}/food:
+    get:
+      tags:
+        - Restaurant
+      summary: Return array of food
+      operationId: getRestaurantFood
+      parameters:
+        - in: path
+          name: restaurantId
+          description: ID of restaurant to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: pages
+          required: true
+          schema:
+            type: integer
+          description: The number of pages
+        - in: query
+          name: nrOfItems
+          required: true
+          schema:
+            type: integer
+          description: The numbers of items to return
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Food"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Restaurant not found
+  /restaurant/{restaurantId}/subsidiary:
+    get:
+      tags:
+        - Restaurant
+      summary: Return array of subsidiaries
+      operationId: getRestaurantSubsidiary
+      parameters:
+        - in: path
+          name: restaurantId
+          description: ID of restaurant to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: pages
+          required: true
+          schema:
+            type: integer
+          description: The number of pages
+        - in: query
+          name: nrOfItems
+          required: true
+          schema:
+            type: integer
+          description: The numbers of items to return
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Subsidiary"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Restaurant not found
+  /restaurant/{restaurantId}/drink:
+    get:
+      tags:
+        - Restaurant
+      summary: Return array of drinks
+      operationId: getRestaurantDrink
+      parameters:
+        - in: path
+          name: restaurantId
+          description: ID of restaurant to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: pages
+          required: true
+          schema:
+            type: integer
+          description: The number of pages
+        - in: query
+          name: nrOfItems
+          required: true
+          schema:
+            type: integer
+          description: The numbers of items to return
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Drink"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Restaurant not found
+
+  /food:
+    get:
+      tags:
+        - Food
+      summary: Get array of food
+      operationId: getFood
+      parameters:
+        - in: query
+          name: pages
+          required: true
+          schema:
+            type: integer
+          description: The number of pages
+        - in: query
+          name: nrOfItems
+          required: true
+          schema:
+            type: integer
+          description: The numbers of items to return
+
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Food"
+        "400":
+          description: Invalid status value
+    post:
+      tags:
+        - Food
+      summary: Add food to DB
+      operationId: postFood
+      requestBody:
+        description: Pagination control in site
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Food"
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+  /food/{foodId}:
+    delete:
+      tags:
+        - Food
+      summary: Delete food from DB
+      operationId: deleteFoodID
+      parameters:
+        - in: path
+          name: foodId
+          description: ID of food to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+    get:
+      tags:
+        - Food
+      summary: Get a food
+      operationId: getFoodID
+      parameters:
+        - in: path
+          name: foodId
+          description: ID of food to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Food"
+        "400":
+          description: Invalid status value
+    put:
+      tags:
+        - Food
+      summary: Update food on DB
+      operationId: putFoodID
+      parameters:
+        - in: path
+          name: foodId
+          description: ID of food to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+
+  /subsidiary:
+    post:
+      tags:
+        - Subsidiary
+      summary: Add subsidiary to DB
+      operationId: postSubsidiary
+      requestBody:
+        description: Pagination control in site
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Subsidiary"
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+  /subsidiary/{subsidiaryId}:
+    put:
+      tags:
+        - Subsidiary
+      summary: Update subsidiary in DB
+      operationId: putSubsidiaryById
+      parameters:
+        - in: path
+          name: subsidiaryId
+          description: ID of subsidiary to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Restaurant"
+        "400":
+          description: Invalid status value
+    get:
+      tags:
+        - Subsidiary
+      summary: Get a specific subsidiary
+      operationId: getSubsidiaryById
+      parameters:
+        - in: path
+          name: subsidiaryId
+          description: ID of subsidiary to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subsidiary"
+        "400":
+          description: Invalid status value
+
+  /drink:
+    post:
+      tags:
+        - Drinks
+      summary: Add drink to DB
+      operationId: postDrink
+      requestBody:
+        description: Pagination control in site
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Drink"
+
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+  /drink/{drinkId}:
+    delete:
+      tags:
+        - Drinks
+      summary: Delete drink from DB
+      operationId: postDrinkById
+      parameters:
+        - in: path
+          name: drinkId
+          description: ID of the drink
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+    get:
+      tags:
+        - Drinks
+      summary: Get drink from DB
+      operationId: getDrinkById
+      parameters:
+        - in: path
+          name: drinkId
+          description: ID of the drink
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drink"
+        "400":
+          description: Invalid status value
+    put:
+      tags:
+        - Drinks
+      summary: Update drink in DB
+      operationId: putDrinkById
+      parameters:
+        - in: path
+          name: drinkId
+          description: ID of the drink
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+
 components:
   schemas:
     Restaurant:
@@ -255,13 +639,6 @@ components:
             - Hookah
             - Playground
             - Kid Activities
-    GetNumberOfPage:
-      type: object
-      properties:
-        pages:
-          type: integer
-        nrOfItems:
-          type: integer
     Subsidiary:
       type: object
       properties:
