@@ -21,6 +21,7 @@ paths:
       tags:
         - Restaurant
       summary: Show all restaurants
+      operationId: getRestaurantById
       parameters:
         - in: query
           name: pages
@@ -51,6 +52,7 @@ paths:
       tags:
         - Restaurant
       summary: Add retaurant to remote DB
+      operationId: getRestaurantById
       requestBody:
         description: Pagination control in site
         required: true
@@ -105,6 +107,7 @@ paths:
         - Restaurant
       summary: Delete restaurant by ID
       description: Returns a single restaurant
+      operationId: getRestaurantById
       parameters:
         - in: query
           name: restaurantId
@@ -126,6 +129,7 @@ paths:
         - Restaurant
       summary: Update restaurant status
       description: Returns a single restaurant
+      operationId: getRestaurantById
       parameters:
         - in: query
           name: restaurantId
