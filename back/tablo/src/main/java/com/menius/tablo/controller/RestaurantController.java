@@ -24,7 +24,7 @@ public class RestaurantController {
         return restaurantService.getAllRestaurants(getNumberOfPage);
     }
 
-    @PutMapping("/save-restaurant")
+    @PostMapping("/save-restaurant")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveRestaurant(@RequestBody RestaurantsGetRequestDto restaurantsGetRequestDto) {
         restaurantService.saveRestaurant(restaurantsGetRequestDto);
@@ -42,7 +42,7 @@ public class RestaurantController {
         return restaurantService.getRestaurantById(restaurantId);
     }
 
-    @PostMapping("/detach-restaurant")
+    @PutMapping("/detach-restaurant")
     @ResponseStatus(HttpStatus.OK)
     public void detachRestaurant(@RequestParam UUID restaurantId){
         restaurantService.detach(restaurantId);

@@ -11,6 +11,8 @@ databaseChangeLog:
               drink_photo TEXT NOT NULL UNIQUE,
               drink_ingredients TEXT,
               is_alcoholic BOOLEAN NOT NULL,
+              drinks_delivery BOOLEAN NOT NULL,
+              drinks_price DOUBLE PRECISION CHECK (drinks_price > 0) NOT NULL,
               restaurant_id UUID NOT NULL,
               CONSTRAINT fk_restaurant
               FOREIGN KEY(restaurant_id)

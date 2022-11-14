@@ -21,8 +21,6 @@ import java.util.UUID;
 
 import static com.menius.tablo.entities.enms.RestaurantStatus.AVAILABLE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,7 +66,6 @@ public class RestaurantServiceImplIntegrTest {
     }
 
     @Test
-    @Disabled
     void getRestaurantById() throws Exception {
         RestaurantDbo restaurantDbo = RestaurantDbo.builder()
                 .restaurantName("Andy")
@@ -78,7 +75,7 @@ public class RestaurantServiceImplIntegrTest {
         restaurantRepository.save(restaurantDbo);
         MvcResult mvcResult = mockMvc.perform(get("/api/tablo/restaurant/get-restaurant-by-id")
                         .contentType("application/json")
-                        .param("id", restaurantDbo.getRestaurantId().toString()))
+                        .param("restaurantId", restaurantDbo.getRestaurantId().toString()))
                 .andExpect(status().isFound()).andReturn();
 
     }

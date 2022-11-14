@@ -21,6 +21,10 @@ public class DrinksDbo {
     private String drinkPhoto;
     private String drinkIngredients;
     private boolean isAlcoholic;
+    @Column(nullable = false)
+    private double drinkPrice;
+    @Column(nullable = false)
+    private boolean isDeliverable;
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST}
