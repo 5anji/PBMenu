@@ -3,7 +3,6 @@ package com.menius.tablo.entities.response;
 import com.menius.tablo.entities.dbo.RestaurantDbo;
 import com.menius.tablo.entities.enms.Status;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -12,15 +11,15 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
-public class FoodResponseDto {
-    private UUID foodId;
-    private String foodName;
-    private String foodPhoto;
-    private String foodIngredients;
-    private UUID restaurantId;
-    private Status status;
-    private boolean isSpicy;
-    private boolean isVegetarian;
-    private double foodPrice;
+public class DrinkGetResponseDto {
+    private UUID drinkId;
+    private String drinkName;
+    private String drinkPhoto;
+    private String drinkIngredients;
+    private boolean isAlcoholic;
+    private double drinkPrice;
     private boolean isDeliverable;
+    private Status status;
+    private UUID restaurantId;
 }
+

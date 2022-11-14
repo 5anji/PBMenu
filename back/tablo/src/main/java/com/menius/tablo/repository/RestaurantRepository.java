@@ -1,12 +1,9 @@
 package com.menius.tablo.repository;
 
-import com.menius.tablo.entities.RestaurantDbo;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.menius.tablo.entities.dbo.RestaurantDbo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

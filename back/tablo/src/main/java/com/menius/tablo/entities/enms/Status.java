@@ -1,6 +1,6 @@
 package com.menius.tablo.entities.enms;
 
-public enum RestaurantStatus {
+public enum Status {
     AVAILABLE,
     DETACHED
 }

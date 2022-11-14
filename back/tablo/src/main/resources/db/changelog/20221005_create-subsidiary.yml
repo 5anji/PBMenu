@@ -8,9 +8,10 @@ databaseChangeLog:
             sql:  CREATE TABLE subsidiary (
               subsidiary_id UUID PRIMARY KEY,
               subsidiary_name VARCHAR NOT NULL,
-              subsidiary_photo TEXT,
               address VARCHAR NOT NULL UNIQUE,
               schedule VARCHAR NOT NULL,
+              phone_number VARCHAR NOT NULL UNIQUE,
+              status VARCHAR NOT NULL,
               restaurant_id UUID NOT NULL,
               CONSTRAINT fk_restaurant
               FOREIGN KEY(restaurant_id)

@@ -1,6 +1,6 @@
-package com.menius.tablo.entities;
+package com.menius.tablo.entities.dbo;
 
-import com.menius.tablo.entities.enms.FoodStatus;
+import com.menius.tablo.entities.enms.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,12 +23,12 @@ public class FoodDbo {
     private String foodIngredients;
     @ManyToOne(
             fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+            cascade = {CascadeType.MERGE}
     )
     @JoinColumn(name = "restaurant_id")
     private RestaurantDbo restaurantDbo;
     @Enumerated(EnumType.STRING)
-    private FoodStatus foodStatus;
+    private Status status;
     @Column(nullable = false)
     private boolean isSpicy;
     @Column(nullable = false)

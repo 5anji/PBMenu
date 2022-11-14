@@ -12,9 +12,9 @@ databaseChangeLog:
               food_ingredients TEXT,
               is_vegetarian BOOLEAN NOT NULL,
               is_spicy BOOLEAN NOT NULL,
-              food_price DOUBLE PRECISION CHECK (food_price > 0) NOT NULL,
-              food_delivery BOOLEAN NOT NULL,
-              food_status VARCHAR NOT NULL,
+              food_price DOUBLE PRECISION NOT NULL,
+              is_deliverable BOOLEAN NOT NULL,
+              status VARCHAR NOT NULL,
               restaurant_id UUID NOT NULL,
               CONSTRAINT fk_restaurant
               FOREIGN KEY(restaurant_id)
