@@ -16,7 +16,7 @@ tags:
   - name: Subsidiary
     description: Operations about subsidiary
 paths:
-  /restaurant/get-all:
+  /restaurant:
     get:
       tags:
         - Restaurant
@@ -47,7 +47,6 @@ paths:
                   $ref: "#/components/schemas/Restaurant"
         "400":
           description: Invalid status value
-  /restaurant/save:
     post:
       tags:
         - Restaurant
@@ -65,7 +64,7 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
-  /restaurant/get-by-id:
+  /restaurant/{restaurantId}:
     get:
       tags:
         - Restaurant
@@ -73,7 +72,7 @@ paths:
       description: Returns a single restaurant
       operationId: getRestaurantById
       parameters:
-        - in: query
+        - in: path
           name: restaurantId
           description: ID of restaurant to return
           required: true
@@ -101,7 +100,6 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Restaurant not found
-  /restaurant/delete:
     delete:
       tags:
         - Restaurant
@@ -109,7 +107,7 @@ paths:
       description: Returns a single restaurant
       operationId: getRestaurantById
       parameters:
-        - in: query
+        - in: path
           name: restaurantId
           description: ID of restaurant to return
           required: true
@@ -123,7 +121,6 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Restaurant not found
-  /restaurant/detach:
     put:
       tags:
         - Restaurant
@@ -131,7 +128,7 @@ paths:
       description: Returns a single restaurant
       operationId: getRestaurantById
       parameters:
-        - in: query
+        - in: path
           name: restaurantId
           description: ID of restaurant to return
           required: true
