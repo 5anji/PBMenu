@@ -65,7 +65,7 @@ const subsidiaries = [
               >(+373) 788 699 18</a
             >
             <h3 class="rest-den">
-              <Icon class="btn-icon" icon="tabler:mail" />Email:
+              <Icon class="btn-icon" icon="uil:envelope" />Email:
             </h3>
             <a class="rest-text" href="mailto:abc@example.com"
               >menuHub@gmail.com</a

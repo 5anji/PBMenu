@@ -401,6 +401,7 @@ onMounted(() => {
     margin: 0 400px;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     @media screen and (max-width: 544px) {
       margin: 0 10px;
     }
@@ -412,6 +413,10 @@ onMounted(() => {
     opacity: 50%;
     @media screen and (max-width: 544px) {
       height: 32px;
+    }
+    &:nth-of-type(2) {
+      height: 90px;
+      // transform: scale(1.3);
     }
   }
 }
