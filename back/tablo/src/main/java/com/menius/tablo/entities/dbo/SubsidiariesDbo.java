@@ -1,6 +1,7 @@
-package com.menius.tablo.entities;
+package com.menius.tablo.entities.dbo;
 
 import com.menius.tablo.entities.enms.Entertainment;
+import com.menius.tablo.entities.enms.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,19 +23,21 @@ public class SubsidiariesDbo {
     private String subsidiaryName;
     @Column(unique = true, nullable = false)
     private String address;
-    private String subsidiaryPhoto;
     @Column(nullable = false)
     private String schedule;
+    @Column(nullable = false)
+    private String phoneNumber;
     @ElementCollection(targetClass = Entertainment.class)
     @JoinTable(name = "entertainments", joinColumns = @JoinColumn(name = "subsidiary_id"))
     @Column(name = "entertainment", nullable = false)
     @Enumerated(EnumType.STRING)
-    List<Entertainment> entertainments;
+    private List<Entertainment> entertainments;
     @ManyToOne(
-
             fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE} //To DO: Persis must be deleted
+            cascade = {CascadeType.MERGE} //To DO: Persis must be deleted
     )
     @JoinColumn(name = "restaurant_id")
-    private RestaurantDbo restaurantId;
+    private RestaurantDbo restaurantDbo;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

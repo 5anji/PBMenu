@@ -1,10 +1,12 @@
 package com.menius.tablo.entities.requests;
 
 import com.menius.tablo.entities.dbo.RestaurantDbo;
+import com.menius.tablo.entities.enms.Entertainment;
 import com.menius.tablo.entities.enms.Status;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -12,14 +14,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
-public class FoodRequestDto {
-    private String foodName;
-    private String foodPhoto;
-    private String foodIngredients;
+public class SubsidiaryAddRequestDto {
     private UUID restaurantId;
+    private String subsidiaryName;
+    private String address;
+    private String schedule;
+    private String phoneNumber;
+    private List<Entertainment> entertainments;
     private Status status;
-    private boolean isSpicy;
-    private boolean isVegetarian;
-    private double foodPrice;
-    private boolean isDeliverable;
 }
