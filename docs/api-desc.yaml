@@ -1,7 +1,7 @@
 openapi: 3.0.3
 
 info:
-  title: API for Tablo website
+  title: API for MenuHub website
   contact:
     email: gitlanm@gmail.com
   license:
@@ -55,13 +55,14 @@ paths:
                   $ref: "#/components/schemas/Restaurant"
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
     post:
       tags:
         - Restaurant
       summary: Add retaurant to remote DB
       operationId: getRestaurantById
       requestBody:
-        description: Pagination control in site
         required: true
         content:
           application/json:
@@ -72,6 +73,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
   /restaurant/{restaurantId}:
     get:
       tags:
@@ -106,7 +109,7 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Restaurant not found
+          description: Not found
     delete:
       tags:
         - Restaurant
@@ -126,7 +129,7 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Restaurant not found
+          description: Not found
     put:
       tags:
         - Restaurant
@@ -146,7 +149,7 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Restaurant not found
+          description: Not found
   /restaurant/{restaurantId}/food:
     get:
       tags:
@@ -185,7 +188,7 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Restaurant not found
+          description: Not found
   /restaurant/{restaurantId}/subsidiary:
     get:
       tags:
@@ -224,7 +227,7 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Restaurant not found
+          description: Not found
   /restaurant/{restaurantId}/drink:
     get:
       tags:
@@ -263,7 +266,7 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Restaurant not found
+          description: Not found
 
   /food:
     get:
@@ -296,13 +299,14 @@ paths:
                   $ref: "#/components/schemas/Food"
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
     post:
       tags:
         - Food
       summary: Add food to DB
       operationId: postFood
       requestBody:
-        description: Pagination control in site
         required: true
         content:
           application/json:
@@ -313,6 +317,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
   /food/{foodId}:
     delete:
       tags:
@@ -333,6 +339,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
     get:
       tags:
         - Food
@@ -356,6 +364,8 @@ paths:
                 $ref: "#/components/schemas/Food"
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
     put:
       tags:
         - Food
@@ -375,6 +385,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
 
   /subsidiary:
     post:
@@ -383,7 +395,6 @@ paths:
       summary: Add subsidiary to DB
       operationId: postSubsidiary
       requestBody:
-        description: Pagination control in site
         required: true
         content:
           application/json:
@@ -394,6 +405,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
   /subsidiary/{subsidiaryId}:
     put:
       tags:
@@ -420,6 +433,8 @@ paths:
                   $ref: "#/components/schemas/Restaurant"
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
     get:
       tags:
         - Subsidiary
@@ -443,6 +458,8 @@ paths:
                 $ref: "#/components/schemas/Subsidiary"
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
 
   /drink:
     post:
@@ -451,7 +468,6 @@ paths:
       summary: Add drink to DB
       operationId: postDrink
       requestBody:
-        description: Pagination control in site
         required: true
         content:
           application/json:
@@ -463,6 +479,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
   /drink/{drinkId}:
     delete:
       tags:
@@ -483,6 +501,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
     get:
       tags:
         - Drinks
@@ -506,6 +526,8 @@ paths:
                 $ref: "#/components/schemas/Drink"
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
     put:
       tags:
         - Drinks
@@ -525,6 +547,8 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
+        "404":
+          description: Not found
 
 components:
   schemas:
