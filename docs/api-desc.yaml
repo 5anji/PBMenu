@@ -22,7 +22,6 @@ tags:
     description: Operations about drinks
   - name: Subsidiary
     description: Operations about subsidiary
-
 paths:
   /restaurant:
     get:
@@ -67,14 +66,50 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Restaurant"
+              type: object
+              required:
+                - name
+                - restaurantStatus
+              properties:
+                restaurantLogoUrl:
+                  type: string
+                  description: url of the image that will be placed as rest. preview
+                photoUrl:
+                  type: string
+                  description: url of the image that will be placed as rest. preview
+                name:
+                  type: string
+                  description: title under photo
+                restaurantStatus:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - DETACHED
+                  description: Current restaurant status
+                pricing:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                phone_number:
+                  type: string
+                  format: number
+                  description: phone numbers to contact with
+                  example: "+373 79123456"
+                email:
+                  type: string
+                  format: email
+                  description: mail address to contact with
+                  example: "qwerty@gmail.com"
+                description:
+                  type: string
+                  format: any
+                  description: Small descrition of the restaurant
+                  example: Lorem ipsum vuisum mapsum libi
       responses:
-        "200":
+        "201":
           description: successful operation
         "400":
           description: Invalid status value
-        "404":
-          description: Not found
   /restaurant/{restaurantId}:
     get:
       tags:
@@ -311,14 +346,44 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Food"
+              type: object
+              required:
+                - restaurantId
+                - foodName
+                - foodStatus
+                - foodPrice
+              properties:
+                foodName:
+                  type: string
+                  example: some_food
+                foodPhoto:
+                  type: string
+                foodIngredients:
+                  type: string
+                restaurantId:
+                  type: string
+                  format: uuid
+                  example: e762634c-3e41-11eb-b897-0862660ccbd4
+                foodStatus:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - DETACHED
+                foodPrice:
+                  type: number
+                  format: float
+                  example: 66.6
+                isDeliverable:
+                  type: boolean
+                isSpicy:
+                  type: boolean
+                isVegetarian:
+                  type: boolean
       responses:
-        "200":
+        "201":
           description: successful operation
         "400":
           description: Invalid status value
-        "404":
-          description: Not found
   /food/{foodId}:
     delete:
       tags:
@@ -399,19 +464,50 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Subsidiary"
+              type: object
+              required: 
+                - restaurantId
+                - subsidiaryName
+                - subsidiaryStatus
+                - schedule
+              properties:
+                subsidiaryName:
+                  type: string
+                  example: subsidiary name
+                phoneNumber:
+                  type: string
+                  description: phone numbers to contact with
+                  example: "+373 79123456"
+                address:
+                  type: string
+                  example: "St. cel Mare str. 1/1"
+                schedule:
+                  type: string
+                  example: "7:00 - 20:00"
+                subsidiaryStatus:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - DETACHED
+                entertainments:
+                  type: array
+                  description: list of available entertaiments
+                  items:
+                    $ref: "#/components/schemas/Entertaiment"
+                restaurantId:
+                  type: string
+                  format: uuid
+                  example: e762634c-3e41-11eb-b897-0862660ccbd4
       responses:
-        "200":
+        "201":
           description: successful operation
         "400":
           description: Invalid status value
-        "404":
-          description: Not found
   /subsidiary/{subsidiaryId}:
     put:
       tags:
         - Subsidiary
-      summary: Update subsidiary in DB
+      summary: Update subsidiary status
       operationId: putSubsidiaryById
       parameters:
         - in: path
@@ -472,15 +568,43 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Drink"
+              type: object
+              required:
+                - restaurantId
+                - drinkName
+                - drinkStatus
+                - drinkPrice
+              properties:
+                drinkName:
+                  type: string
+                  example: some_food
+                drinkPhoto:
+                  type: string
+                drinkIngredients:
+                  type: string
+                drinkStatus:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - DETACHED
+                drinkPrice:
+                  type: number
+                  format: float
+                  example: 66.6
+                isDeliverable:
+                  type: boolean
+                isAlcoholic:
+                  type: boolean
+                restaurantId:
+                  type: string
+                  format: uuid
+                  example: e762634c-3e41-11eb-b897-0862660ccbd4
 
       responses:
-        "200":
+        "201":
           description: successful operation
         "400":
           description: Invalid status value
-        "404":
-          description: Not found
   /drink/{drinkId}:
     delete:
       tags:
@@ -531,7 +655,7 @@ paths:
     put:
       tags:
         - Drinks
-      summary: Update drink in DB
+      summary: Update drink status
       operationId: putDrinkById
       parameters:
         - in: path
@@ -554,6 +678,10 @@ components:
   schemas:
     Restaurant:
       type: object
+      required: 
+        - id
+        - name
+        - restaurantStatus
       properties:
         id:
           type: string
@@ -576,13 +704,16 @@ components:
           description: Current restaurant status
         pricing:
           type: integer
-          example: 4
+          minimum: 1
+          maximum: 5
         phone_number:
           type: string
+          format: number
           description: phone numbers to contact with
           example: "+373 79123456"
         email:
           type: string
+          format: email
           description: mail address to contact with
           example: "qwerty@gmail.com"
         description:
@@ -592,6 +723,12 @@ components:
           example: Lorem ipsum vuisum mapsum libi
     Food:
       type: object
+      required: 
+        - foodId
+        - restaurantId
+        - foodName
+        - foodStatus
+        - foodPrice
       properties:
         foodId:
           type: string
@@ -625,6 +762,12 @@ components:
           type: boolean
     Drink:
       type: object
+      required: 
+        - drinkId
+        - restaurantId
+        - drinkName
+        - drinkStatus
+        - drinkPrice
       properties:
         drinkId:
           type: string
@@ -665,6 +808,12 @@ components:
             - Kid Activities
     Subsidiary:
       type: object
+      required: 
+        - subsidiaryId
+        - restaurantId
+        - subsidiaryName
+        - subsidiaryStatus
+        - schedule
       properties:
         subsidiaryId:
           type: string
@@ -683,6 +832,11 @@ components:
         schedule:
           type: string
           example: "7:00 - 20:00"
+        subsidiaryStatus:
+          type: string
+          enum:
+            - AVAILABLE
+            - DETACHED
         entertainments:
           type: array
           description: list of available entertaiments
