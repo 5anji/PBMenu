@@ -2,7 +2,6 @@ package com.menius.tablo.repository;
 
 import com.menius.tablo.entities.dbo.RestaurantDbo;
 import com.menius.tablo.entities.dbo.SubsidiariesDbo;
-import com.menius.tablo.entities.enms.Entertainment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

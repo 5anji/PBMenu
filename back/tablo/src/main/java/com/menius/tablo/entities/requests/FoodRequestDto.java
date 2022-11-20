@@ -13,6 +13,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class FoodRequestDto {
+    private UUID uuid;
     private String foodName;
     private String foodPhoto;
     private String foodIngredients;

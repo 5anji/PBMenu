@@ -29,6 +29,7 @@ public class DrinksServiceImpl implements DrinksService {
     @Override
     public void saveDrink(DrinkRequestDto requestDto) {
         drinkRepository.save(DrinksDbo.builder()
+                .drinkId(requestDto.getDrinkId())
                 .drinkName(requestDto.getDrinkName())
                 .drinkIngredients(requestDto.getDrinkIngredients())
                 .isAlcoholic(requestDto.isAlcoholic())
@@ -41,7 +42,7 @@ public class DrinksServiceImpl implements DrinksService {
     }
 
     @Override
-    public void deleteDrink(UUID uuid){
+    public void deleteDrink(UUID uuid) {
         drinkRepository.deleteById(uuid);
     }
 
@@ -100,6 +101,7 @@ public class DrinksServiceImpl implements DrinksService {
 
     private DrinkGetResponseDto convertToDto(DrinksDbo drinksDbo) {
         return DrinkGetResponseDto.builder()
+                .drinkId(drinksDbo.getDrinkId())
                 .drinkName(drinksDbo.getDrinkName())
                 .drinkIngredients(drinksDbo.getDrinkIngredients())
                 .isAlcoholic(drinksDbo.isAlcoholic())

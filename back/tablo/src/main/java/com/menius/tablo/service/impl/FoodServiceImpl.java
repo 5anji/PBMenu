@@ -30,6 +30,7 @@ public class FoodServiceImpl implements FoodService {
     public void saveFood(FoodRequestDto foodRequestDto) {
         RestaurantDbo restaurantDbo = restaurantRepository.getByRestaurantId(foodRequestDto.getRestaurantId()).orElseThrow();
         foodRepository.save(FoodDbo.builder()
+                .foodId(foodRequestDto.getUuid())
                 .status(foodRequestDto.getStatus())
                 .foodIngredients(foodRequestDto.getFoodIngredients())
                 .foodName(foodRequestDto.getFoodName())

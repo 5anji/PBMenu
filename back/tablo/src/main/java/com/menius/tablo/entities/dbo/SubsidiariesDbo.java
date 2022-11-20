@@ -1,11 +1,9 @@
 package com.menius.tablo.entities.dbo;
 
-import com.menius.tablo.entities.enms.Entertainment;
 import com.menius.tablo.entities.enms.Status;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -27,14 +25,9 @@ public class SubsidiariesDbo {
     private String schedule;
     @Column(nullable = false)
     private String phoneNumber;
-    @ElementCollection(targetClass = Entertainment.class)
-    @JoinTable(name = "entertainments", joinColumns = @JoinColumn(name = "subsidiary_id"))
-    @Column(name = "entertainment", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private List<Entertainment> entertainments;
     @ManyToOne(
             fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE} //To DO: Persis must be deleted
+            cascade = {CascadeType.MERGE}
     )
     @JoinColumn(name = "restaurant_id")
     private RestaurantDbo restaurantDbo;

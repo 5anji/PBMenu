@@ -59,6 +59,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void saveRestaurant(RestaurantsGetRequestDto r) {
         restaurantRepository.save(RestaurantDbo.builder()
+                .restaurantId(r.getRestaurantId())
                 .restaurantName(r.getRestaurantName())
                 .restaurantLogoUrl(r.getRestaurantLogoUrl())
                 .description(r.getDescription())
@@ -72,12 +73,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void deleteRestaurantById(UUID restaurantId) {
-        restaurantRepository.deleteByRestaurantId(restaurantId);
+        restaurantRepository.deleteById(restaurantId);
     }
 
     @Override
     public void detach(UUID restaurantId) {
-        restaurantRepository.findById(restaurantId).ifPresent(r -> r.setStatus(DETACHED));
+        restaurantRepository.getByRestaurantId(restaurantId).ifPresent(r -> r.setStatus(DETACHED));
     }
 
     private static Predicate<RestaurantDbo> isAvailable() {

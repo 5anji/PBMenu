@@ -29,12 +29,12 @@ public class SubsidiaryServiceImpl implements SubsidiaryService {
     public void addSubsidiary(SubsidiaryAddRequestDto subsidiaryAddRequestDto) {
         RestaurantDbo restaurantDbo = restaurantRepository.findById(subsidiaryAddRequestDto.getRestaurantId()).orElseThrow();
         subsidiaryRepository.save(SubsidiariesDbo.builder()
+                .subsidiaryId(subsidiaryAddRequestDto.getUuid())
                 .address(subsidiaryAddRequestDto.getAddress())
                 .subsidiaryName(subsidiaryAddRequestDto.getSubsidiaryName())
                 .schedule(subsidiaryAddRequestDto.getSchedule())
                 .phoneNumber(subsidiaryAddRequestDto.getPhoneNumber())
                 .restaurantDbo(restaurantDbo)
-                .entertainments(subsidiaryAddRequestDto.getEntertainments())
                 .status(AVAILABLE)
                 .build());
     }
@@ -54,7 +54,7 @@ public class SubsidiaryServiceImpl implements SubsidiaryService {
                 .subsidiaryName(s.getSubsidiaryName())
                 .address(s.getAddress())
                 .schedule(s.getSchedule())
-                .entertainments(s.getEntertainments())
+                .phoneNumber(s.getPhoneNumber())
                 .restaurantId(s.getRestaurantDbo().getRestaurantId())
                 .status(s.getStatus())
                 .build();
@@ -81,9 +81,10 @@ public class SubsidiaryServiceImpl implements SubsidiaryService {
                 .subsidiaryName(subsidiariesDbo.getSubsidiaryName())
                 .address(subsidiariesDbo.getAddress())
                 .schedule(subsidiariesDbo.getSchedule())
-                .entertainments(subsidiariesDbo.getEntertainments())
+                .phoneNumber(subsidiariesDbo.getPhoneNumber())
                 .restaurantId(subsidiariesDbo.getRestaurantDbo().getRestaurantId())
                 .status(subsidiariesDbo.getStatus())
                 .build();
     }
+
 }

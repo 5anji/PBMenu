@@ -1,27 +1,19 @@
 package com.menius.tablo.controller;
 
-import com.menius.tablo.entities.requests.DrinkRequestDto;
-import com.menius.tablo.entities.requests.FoodRequestDto;
-import com.menius.tablo.entities.requests.RestaurantsGetRequestDto;
-import com.menius.tablo.entities.requests.SubsidiaryAddRequestDto;
-import com.menius.tablo.entities.response.DrinkGetResponseDto;
-import com.menius.tablo.entities.response.FoodResponseDto;
-import com.menius.tablo.entities.response.RestaurantsGetResponseDto;
-import com.menius.tablo.entities.response.SubsidiaryGetResponseDto;
-import com.menius.tablo.service.DrinksService;
-import com.menius.tablo.service.FoodService;
-import com.menius.tablo.service.RestaurantService;
-import com.menius.tablo.service.SubsidiaryService;
+import com.menius.tablo.entities.requests.*;
+import com.menius.tablo.entities.response.*;
+import com.menius.tablo.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class MenuHubController {
@@ -29,16 +21,17 @@ public class MenuHubController {
     private final FoodService foodService;
     private final SubsidiaryService subsidiaryService;
     private final DrinksService drinksService;
+    private final TagsService tagsService;
 
     // restaurant endpoints
     @GetMapping("/restaurant")
     @ResponseStatus(OK)
     public List<RestaurantsGetResponseDto> getAllRestaurants(@RequestParam int pages, @RequestParam int nrOfItems) {
-        return restaurantService.getAllRestaurants(pages, nrOfItems);
+        return restaurantService.getAllRestaurants(pages - 1, nrOfItems);
     }
 
     @PostMapping("/restaurant")
-    @ResponseStatus(OK)
+    @ResponseStatus(CREATED)
     public void saveRestaurant(@RequestBody RestaurantsGetRequestDto restaurantsGetRequestDto) {
         restaurantService.saveRestaurant(restaurantsGetRequestDto);
     }
@@ -66,11 +59,11 @@ public class MenuHubController {
     @GetMapping("/food")
     @ResponseStatus(OK)
     public List<FoodResponseDto> getAllFood(@RequestParam int pages, @RequestParam int nrOfItems) {
-        return foodService.getAllFood(pages, nrOfItems);
+        return foodService.getAllFood(pages + 1, nrOfItems);
     }
 
     @PostMapping("/food")
-    @ResponseStatus(OK)
+    @ResponseStatus(CREATED)
     public void saveFood(@RequestBody FoodRequestDto foodRequestDto) {
         foodService.saveFood(foodRequestDto);
     }
@@ -90,7 +83,7 @@ public class MenuHubController {
     @GetMapping("/restaurant/{restaurantId}/food")
     @ResponseStatus(OK)
     public List<FoodResponseDto> getFoodByRestaurant(@PathVariable UUID restaurantId, @RequestParam int pages, @RequestParam int nrOfItems) {
-        return foodService.getFoodByRestaurant(restaurantId, pages, nrOfItems);
+        return foodService.getFoodByRestaurant(restaurantId, pages - 1, nrOfItems);
     }
 
     @PutMapping("/food/{foodId}")
@@ -102,8 +95,8 @@ public class MenuHubController {
 
     //subsidiary endpoints
     @PostMapping("/subsidiary")
-    @ResponseStatus(OK)
-    public void addSubsidiary(@RequestBody SubsidiaryAddRequestDto subsidiaryAddRequestDto) {
+    @ResponseStatus(CREATED)
+    public void saveSubsidiary(@RequestBody SubsidiaryAddRequestDto subsidiaryAddRequestDto) {
         subsidiaryService.addSubsidiary(subsidiaryAddRequestDto);
     }
 
@@ -122,13 +115,13 @@ public class MenuHubController {
     @GetMapping("/restaurant/{restaurantId}/subsidiary")
     @ResponseStatus(OK)
     public List<SubsidiaryGetResponseDto> getSubsidiaryByRestaurantId(@PathVariable UUID restaurantId, @RequestParam int pages, @RequestParam int nrOfItems) {
-        return subsidiaryService.getSubsidiaryByRestaurantId(restaurantId, pages, nrOfItems);
+        return subsidiaryService.getSubsidiaryByRestaurantId(restaurantId, pages - 1, nrOfItems);
     }
     //subsidiary endpoints end
 
     //drink endpoints
     @PostMapping("/drink")
-    @ResponseStatus(OK)
+    @ResponseStatus(CREATED)
     public void saveDrink(@RequestBody DrinkRequestDto drinkRequestDto) {
         drinksService.saveDrink(drinkRequestDto);
     }
@@ -148,7 +141,7 @@ public class MenuHubController {
     @GetMapping("/restaurant/{restaurantId}/drink")
     @ResponseStatus(OK)
     public List<DrinkGetResponseDto> getDrinkByRestaurant(@PathVariable UUID restaurantId, @RequestParam int pages, @RequestParam int nrOfItems) {
-        return drinksService.getDrinkByRestaurant(restaurantId, pages, nrOfItems);
+        return drinksService.getDrinkByRestaurant(restaurantId, pages - 1, nrOfItems);
     }
 
     @PutMapping("/drink/{drinkId}")
@@ -157,4 +150,30 @@ public class MenuHubController {
         drinksService.detachDrinkFromMenu(drinkId);
     }
     //drink endpoints end
+
+    //Tags endpoints
+    @PostMapping("/tag")
+    @ResponseStatus(CREATED)
+    public void saveTag(@RequestBody TagsRequestDto tagsRequestDto) {
+        tagsService.saveTag(tagsRequestDto);
+    }
+
+    @DeleteMapping("/tag/{tagId}")
+    @ResponseStatus(OK)
+    public void deleteTagById(@PathVariable UUID tagId) {
+        tagsService.deleteTagById(tagId);
+    }
+
+    @GetMapping("/tag/{tagId}")
+    @ResponseStatus(OK)
+    public TagsResponseDto getTagById(@PathVariable UUID tagId) {
+        return tagsService.getTagById(tagId);
+    }
+
+    @GetMapping("/subsidiary/{subsidiaryId}/tag")
+    @ResponseStatus(OK)
+    public List<TagsResponseDto> getTagBySubsidiary(@PathVariable UUID subsidiaryId, @RequestParam int pages, @RequestParam int nrOfItems) {
+        return tagsService.getTagsBySubsidiaryId(subsidiaryId, pages - 1, nrOfItems);
+    }
+    //Tags endpoints end
 }
