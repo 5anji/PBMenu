@@ -22,6 +22,8 @@ tags:
     description: Operations about drinks
   - name: Subsidiary
     description: Operations about subsidiary
+  - name: Tags
+    description: Operations about tags
 paths:
   /restaurant:
     get:
@@ -107,7 +109,7 @@ paths:
                   example: Lorem ipsum vuisum mapsum libi
       responses:
         "201":
-          description: successful operation
+          description: created object
         "400":
           description: Invalid status value
   /restaurant/{restaurantId}:
@@ -220,6 +222,46 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Food"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Not found
+  
+  /restaurant/{restaurantId}/tags:
+    get:
+      tags:
+        - Restaurant
+      summary: Return array of tags
+      operationId: getRestaurantTags
+      parameters:
+        - in: path
+          name: restaurantId
+          description: ID of restaurant to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: pages
+          required: true
+          schema:
+            type: integer
+          description: The number of pages
+        - in: query
+          name: nrOfItems
+          required: true
+          schema:
+            type: integer
+          description: The numbers of items to return
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Tags"
         "400":
           description: Invalid ID supplied
         "404":
@@ -381,7 +423,7 @@ paths:
                   type: boolean
       responses:
         "201":
-          description: successful operation
+          description: created object
         "400":
           description: Invalid status value
   /food/{foodId}:
@@ -489,18 +531,13 @@ paths:
                   enum:
                     - AVAILABLE
                     - DETACHED
-                entertainments:
-                  type: array
-                  description: list of available entertaiments
-                  items:
-                    $ref: "#/components/schemas/Entertaiment"
                 restaurantId:
                   type: string
                   format: uuid
                   example: e762634c-3e41-11eb-b897-0862660ccbd4
       responses:
         "201":
-          description: successful operation
+          description: created object
         "400":
           description: Invalid status value
   /subsidiary/{subsidiaryId}:
@@ -602,7 +639,7 @@ paths:
 
       responses:
         "201":
-          description: successful operation
+          description: created object
         "400":
           description: Invalid status value
   /drink/{drinkId}:
@@ -673,7 +710,81 @@ paths:
           description: Invalid status value
         "404":
           description: Not found
+  /tag:
+    post:
+      tags:
+        - Tags
+      summary: Add drink to DB
+      operationId: postTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tagName
+                - subsidiaryId
+              properties:
+                tagName:
+                  type: string
+                  example: subsidiary name
+                subsidiaryId:
+                  type: string
+                  format: uuid
+                  example: e762634c-3e41-11eb-b897-0862660ccbd4
 
+      responses:
+        "201":
+          description: created object
+        "400":
+          description: Invalid status value
+  /tag/{tagId}:
+    delete:
+      tags:
+        - Tags
+      summary: Delete drink from DB
+      operationId: postTagById
+      parameters:
+        - in: path
+          name: tagId
+          description: ID of the tag
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+        "404":
+          description: Not found
+    get:
+      tags:
+        - Tags
+      summary: Get drink from DB
+      operationId: getTagById
+      parameters:
+        - in: path
+          name: tagId
+          description: ID of the tag
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tags"
+        "400":
+          description: Invalid status value
+        "404":
+          description: Not found
 components:
   schemas:
     Restaurant:
@@ -797,15 +908,24 @@ components:
           type: string
           format: uuid
           example: e762634c-3e41-11eb-b897-0862660ccbd4
-    Entertaiment:
+    Tags:
       type: object
+      required: 
+        - tagId
+        - tagName
+        - subsidiaryId
       properties:
-        Entertaiment:
+        tagId:
           type: string
-          enum:
-            - Hookah
-            - Playground
-            - Kid Activities
+          format: uuid
+          example: e762634c-3e41-11eb-b897-0862660ccbd4
+        tagName:
+          type: string
+          example: subsidiary name
+        subsidiaryId:
+          type: string
+          format: uuid
+          example: e762634c-3e41-11eb-b897-0862660ccbd4
     Subsidiary:
       type: object
       required: 
@@ -837,11 +957,6 @@ components:
           enum:
             - AVAILABLE
             - DETACHED
-        entertainments:
-          type: array
-          description: list of available entertaiments
-          items:
-            $ref: "#/components/schemas/Entertaiment"
         restaurantId:
           type: string
           format: uuid
