@@ -1,15 +1,40 @@
 <script setup>
-defineProps(["title", "address", "tel", "schedule"]);
+defineProps({
+  "title":{
+    type: String,
+    required: true,
+  },
+  "address":{
+    type: String,
+    required: true,
+  },
+  "tel":{
+    type: String,
+    required: true,
+  },
+  "schedule":{
+    type: String,
+    required: true,
+  }
+});
 </script>
 
 <template>
   <div class="subsidiary">
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="title">
+      {{ title }}
+    </h1>
 
-    <h2 class="tel">{{ tel }}</h2>
-    <h2 class="address">{{ address }}</h2>
+    <h2 class="tel">
+      {{ tel }}
+    </h2>
+    <h2 class="address">
+      {{ address }}
+    </h2>
 
-    <h2 class="schedule">{{ schedule }}</h2>
+    <h2 class="schedule">
+      {{ schedule }}
+    </h2>
   </div>
 </template>
 <style scoped lang="scss">
@@ -26,15 +51,15 @@ defineProps(["title", "address", "tel", "schedule"]);
   transition-property: box-shadow, transform;
   transition: 0.3s ease;
   will-change: box-shadow, transform;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
-    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0 4px 16px,
+    rgba(17, 17, 26, 0.05) 0 8px 32px;
   @media screen and (max-width: 544px) {
     grid-template-columns: 1fr;
     gap: 8px;
   }
 
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
     transform: scale(1.05);
     @media screen and (max-width: 544px) {
       transform: none;
@@ -43,7 +68,6 @@ defineProps(["title", "address", "tel", "schedule"]);
 
   .title {
     margin: 0;
-    color: var(--violetInchis);
     color: #888;
     font-size: 30px;
     font-weight: 700;

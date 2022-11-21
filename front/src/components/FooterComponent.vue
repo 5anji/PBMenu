@@ -1,27 +1,46 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+
+
 </script>
 
 <template>
   <div class="footer">
     <div class="footer1">
       <router-link to="/">
-        <img class="logo" src="../img/Logo.png" alt="menu-hub logo" />
+        <img
+          class="logo"
+          src="../img/Logo.png"
+          alt="menu-hub logo"
+        >
       </router-link>
       <ul class="social-links">
         <li>
-          <a class="footer-link" href="#"
-            ><Icon class="social-icon" icon="uil:instagram" />
+          <a
+            class="footer-link"
+            href="#"
+          ><Icon
+            class="social-icon"
+            icon="uil:instagram"
+          />
           </a>
         </li>
         <li>
-          <a class="footer-link" href="#"
-            ><Icon class="social-icon" icon="uil:facebook-f"
+          <a
+            class="footer-link"
+            href="#"
+          ><Icon
+            class="social-icon"
+            icon="uil:facebook-f"
           /></a>
         </li>
         <li>
-          <a class="footer-link" href="#"
-            ><Icon class="social-icon" icon="uil:twitter-alt"
+          <a
+            class="footer-link"
+            href="#"
+          ><Icon
+            class="social-icon"
+            icon="uil:twitter-alt"
           /></a>
         </li>
       </ul>
@@ -30,9 +49,17 @@ import { Icon } from "@iconify/vue";
       </p>
     </div>
     <div class="footer2">
-      <p class="contact-us">Contact us</p>
-      <a class="email" href="mailto: abc@example.com">menuHub@gmail.com</a>
-      <a class="tel" href="tel: +373 788 699 18">(+373) 788 699 18</a>
+      <p class="contact-us">
+        Contact us
+      </p>
+      <a
+        class="email"
+        href="mailto: abc@example.com"
+      >menuHub@gmail.com</a>
+      <a
+        class="tel"
+        href="tel: +373 788 699 18"
+      >(+373) 788 699 18</a>
     </div>
   </div>
 </template>
@@ -47,9 +74,12 @@ import { Icon } from "@iconify/vue";
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 100px;
+  justify-content: center;
+  width: 0 auto;
   @media screen and (max-width: 544px) {
-    padding: 128px 32px;
-    gap: 32px;
+    display: flex;
+    padding: 64px 32px;
+    gap: 0px;
   }
 
   .footer1 {

@@ -2,9 +2,9 @@
 // import { routerKey } from "vue-router";
 
 // import { computed } from "@vue/reactivity";
-import { ref, computed, onMounted } from "vue";
+import { ref, } from "vue";
 import RestaurantItem from "./RestaurantItem.vue";
-import Restaurant from "./Restaurant.vue";
+import Restaurant from "./RestaurantComponent.vue";
 
 const list = ref([
   { title: "Andy's Pizza", description: "Pizzeria" },
@@ -28,9 +28,15 @@ const list = ref([
 <template>
   <div class="screen">
     <!-- <button @click="ada">Add</button> -->
-    <h1 class="restaurants-num">All available menus</h1>
+    <h1 class="restaurants-num">
+      All available menus
+    </h1>
     <div class="restaurants">
-      <div class="restaurants-for" v-for="item in list">
+      <div
+        v-for="item in list"
+        :key="item.title"
+        class="restaurants-for"
+      >
         <router-link
           class="restaurant-info"
           :to="{ name: 'Restaurant', params: { id: item } }"
@@ -49,22 +55,19 @@ const list = ref([
 .screen {
   .restaurants-num {
     background-size: 18px 18px;
-    margin: 0;
+    margin: 0 0 0 100px;
     padding-top: 180px;
     padding-bottom: 48px;
     color: var(--verdeInchis);
     font-weight: 700;
     font-size: 48px;
-    margin-left: 100px;
     letter-spacing: 0.75px;
     @media screen and (max-width: 544px) {
       margin-left: 45px;
       // width: 100vh;
       // font-size: 78px;
       display: inline-block;
-      padding: 0;
-      padding-top: 128px;
-      padding-bottom: 32px;
+      padding:128px 0 32px 0;
     }
   }
   .restaurants {
@@ -74,7 +77,7 @@ const list = ref([
       #ffffff 0.9px
     );
     background-size: 18px 18px;
-    margin: 0;
+    margin: 0 0 96px 0;
     padding: 48px 100px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -82,7 +85,6 @@ const list = ref([
     justify-content: center;
     font-size: 24px;
     gap: 100px;
-    margin-bottom: 96px;
     @media screen and (max-width: 1555px) {
       padding: 48px 48px;
       gap: 48px;
@@ -90,7 +92,6 @@ const list = ref([
     @media screen and (max-width: 544px) {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       justify-content: center;
       margin: 0;

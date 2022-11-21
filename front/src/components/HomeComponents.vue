@@ -1,11 +1,18 @@
 <script setup>
-defineProps(["title"]);
+defineProps({
+  "title":{
+    type: String,
+    required: true,
+  }
+});
 </script>
 
 <template>
   <div class="home-rest-wrapper">
     <div class="home-rest">
-      <h3 class="home-rest-title">{{ title }}</h3>
+      <h3 class="home-rest-title">
+        {{ title }}
+      </h3>
       <span class="more">More &rarr;</span>
       <!-- <h3 class="home-rest-desc">{{ description }}</h3> -->
     </div>

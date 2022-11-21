@@ -3,11 +3,12 @@ import { watch, ref, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
 const scrollRef = ref({});
-const props = defineProps(["forceShow"]);
-
-// const onEnter = () => {};
-
-// const onExit = () => {};
+const props = defineProps({
+  "forceShow": {
+    type: Boolean,
+    required: true,
+  }
+});
 
 const route = useRoute();
 const visible = ref(route.name === "Home");
@@ -17,25 +18,41 @@ watch(route, (x) => {
 </script>
 
 <template>
-  <div class="nav" v-show="!visible || props.forceShow">
+  <div
+    v-show="!visible || props.forceShow"
+    class="nav"
+  >
     <router-link to="/">
-      <img class="logo" src="../img/Logo.png" alt="menu-hub logo" />
+      <img
+        class="logo"
+        src="../img/Logo.png"
+        alt="menu-hub logo"
+      >
       <!-- {{ currentSection }} -->
     </router-link>
     <div class="nav-bar">
-      <router-link class="right-bar" to="/restaurants">Restaurants</router-link>
-      <router-link class="right-bar" :to="{ path: '/', hash: '#about-us' }"
-        >About Us</router-link
+      <router-link
+        class="right-bar"
+        to="/restaurants"
       >
+        Restaurants
+      </router-link>
+      <router-link
+        class="right-bar"
+        :to="{ path: '/', hash: '#about-us' }"
+      >
+        About Us
+      </router-link>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 .nav {
   margin: 0;
+  // background-color: rgba(255, 255, 255, 0.9);
+
   backdrop-filter: blur(3px);
   position: fixed;
-
   width: 100%;
   z-index: 100;
   padding: 20px 100px;
@@ -72,6 +89,9 @@ watch(route, (x) => {
     &:hover {
       transform: scale(1.05);
     }
+  }
+  @media screen and (max-width: 544px) {
+    display: none;
   }
 }
 </style>

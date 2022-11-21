@@ -1,5 +1,10 @@
 <script setup>
-defineProps(["description"]);
+defineProps({
+  "description":{
+    type: String,
+    required:true
+  }
+});
 </script>
 
 <template>

@@ -1,12 +1,25 @@
 <script setup>
-defineProps(["title", "description"]);
+defineProps({
+  "title":{
+    type: String,
+    required: true,
+  },
+  "description":{
+    type: String,
+    required: true,
+  }
+});
 </script>
 
 <template>
   <div class="restaurant-item">
     <div class="restaurant">
-      <h3 class="restaurant-title">{{ title }}</h3>
-      <h3 class="restaurant-description">{{ description }}</h3>
+      <h3 class="restaurant-title">
+        {{ title }}
+      </h3>
+      <h3 class="restaurant-description">
+        {{ description }}
+      </h3>
     </div>
     <!-- <img class="restaurant-img" src="../img/andys-1.png" /> -->
   </div>

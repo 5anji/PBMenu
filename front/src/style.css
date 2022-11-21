@@ -24,3 +24,8 @@ html {
   border-width: 0; /* 2 */
   border-style: solid; /* 2 */
 }
+*:focus {
+  outline: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 0.2rem var(--verde);
+}

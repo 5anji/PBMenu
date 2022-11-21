@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import RestaurantItem from "./RestaurantItem.vue";
-import Restaurant from "./Restaurant.vue";
+import Restaurant from "./RestaurantComponent.vue";
 import HomeComponents from "./HomeComponents.vue";
+import { Icon } from "@iconify/vue";
 
 // const list = ref([]);
 const list = ref([
@@ -57,43 +58,61 @@ onMounted(() => {
 <template>
   <section class="home">
     <div class="home-sec-img">
-      <img class="home-img" src="../img/Logo.png" />
+      <img
+        class="home-img"
+        src="../img/Logo.png"
+      >
     </div>
-    <template v-for="item in list.slice(3, 10)">
-      <router-link :to="{ name: 'Restaurant', params: { id: item } }">
+    <template
+      v-for="item in list.slice(3, 10)"
+      :key="item.title"
+    >
+      <router-link
+        :to="{ name: 'Restaurant', params: { id: item } }"
+      >
         <home-components :title="item.title" />
       </router-link>
     </template>
-    <span></span>
-    <router-link class="details" :to="{ path: '/', hash: '#feature' }"
-      >Details &darr;</router-link
+    <span />
+    <router-link
+      class="details"
+      :to="{ path: '/', hash: '#feature' }"
     >
-  </section>
-  <!-- <section class="nav-home" ref="nav" :class="{ sticky: x }">
-    <router-link to="/">
-      <img class="logo-home" src="../img/Logo.png" alt="menu-hub logo" />
+      Details &darr;
     </router-link>
-    <div class="nav-bar-home">
-      <router-link class="right-bar-home" to="/restaurants"
-        >Restaurants</router-link
-      >
-      <router-link class="right-bar-home" :to="{ path: '/', hash: '#about-us' }"
-        >About Us</router-link
-      >
-    </div>
-  </section> -->
-  <section class="featured-in" id="feature">
-    <h1 class="heading-featured-in">As featured in</h1>
+  </section>
+  <section
+    id="feature"
+    class="featured-in"
+  >
+    <h1 class="heading-featured-in">
+      As featured in
+    </h1>
     <div class="logos">
-      <img src="../img/faf_logo2.png" alt="FAF logo" />
-      <img class="noction" src="../img/IRPFC-logo-1.png" alt="Noction logo" />
-      <img src="../img/utm-logo.png" alt="UTM logo" />
+      <img
+        src="../img/faf_logo2.png"
+        alt="FAF logo"
+      >
+      <img
+        class="noction"
+        src="../img/IRPFC-logo-1.png"
+        alt="Noction logo"
+      >
+      <img
+        src="../img/utm-logo.png"
+        alt="UTM logo"
+      >
     </div>
   </section>
   <section class="top">
-    <h1 class="top-description">MenuHub helps you to choose the best menu!</h1>
+    <h1 class="top-description">
+      MenuHub helps you to choose the best menu!
+    </h1>
     <div class="top-restaurants">
-      <div v-for="item in list.slice(0, 3)">
+      <div
+        v-for="item in list.slice(0, 3)"
+        :key="item.title"
+      >
         <router-link
           class="restaurant-info"
           :to="{ name: 'Restaurant', params: { id: item } }"
@@ -105,19 +124,29 @@ onMounted(() => {
         </router-link>
       </div>
     </div>
-    <router-link class="see-more" to="/restaurants"
-      >See more &rarr;</router-link
+    <router-link
+      class="see-more"
+      to="/restaurants"
     >
+      See more
+      <Icon
+        class="icon"
+        icon="ic:round-keyboard-arrow-right"
+      />
+      <!-- <Icon class="icon" icon="tabler:arrow-narrow-right" /> -->
+    </router-link>
   </section>
   <section class="testimonials-section">
-    <h1 class="test-name">Testimonials</h1>
+    <h1 class="test-name">
+      Testimonials
+    </h1>
     <div class="testimonials">
       <div class="gallery">
         <div class="gal">
           <img
             class="gallery-img"
             src="../img/louis-hansel--rUVo0vua1M-unsplash1.jpg"
-          />
+          >
         </div>
       </div>
 
@@ -129,11 +158,15 @@ onMounted(() => {
                 class="testimonial-img"
                 alt="Photo of customer Dave Bryson"
                 src="../img/ben.jpg"
-              />
-              <blockquote class="testimonial-text">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </blockquote>
-              <p class="testimonial-name">&mdash; Dave Bryson</p>
+              >
+              <div class="testimonail-text">
+                <blockquote class="testimonial-text">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                </blockquote>
+                <p class="testimonial-name">
+                  &mdash; Dave Bryson
+                </p>
+              </div>
             </figure>
           </div>
         </div>
@@ -144,11 +177,15 @@ onMounted(() => {
                 class="testimonial-img"
                 alt="Photo of customer Dave Bryson"
                 src="../img/alice.jpg"
-              />
-              <blockquote class="testimonial-text">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </blockquote>
-              <p class="testimonial-name">&mdash; Dave Bryson</p>
+              >
+              <div class="testimonail-text">
+                <blockquote class="testimonial-text">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                </blockquote>
+                <p class="testimonial-name">
+                  &mdash; Dave Bryson
+                </p>
+              </div>
             </figure>
           </div>
         </div>
@@ -159,11 +196,15 @@ onMounted(() => {
                 class="testimonial-img"
                 alt="Photo of customer Dave Bryson"
                 src="../img/marius.jpg"
-              />
-              <blockquote class="testimonial-text">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </blockquote>
-              <p class="testimonial-name">&mdash; Dave Bryson</p>
+              >
+              <div class="testimonail-text">
+                <blockquote class="testimonial-text">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                </blockquote>
+                <p class="testimonial-name">
+                  &mdash; Dave Bryson
+                </p>
+              </div>
             </figure>
           </div>
         </div>
@@ -174,11 +215,15 @@ onMounted(() => {
                 class="testimonial-img"
                 alt="Photo of customer Dave Bryson"
                 src="../img/steve.jpg"
-              />
-              <blockquote class="testimonial-text">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </blockquote>
-              <p class="testimonial-name">&mdash; Dave Bryson</p>
+              >
+              <div class="testimonail-text">
+                <blockquote class="testimonial-text">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                </blockquote>
+                <p class="testimonial-name">
+                  &mdash; Dave Bryson
+                </p>
+              </div>
             </figure>
           </div>
         </div>
@@ -186,43 +231,90 @@ onMounted(() => {
     </div>
   </section>
 
-  <section class="about-us" id="about-us">
+  <section
+    id="about-us"
+    class="about-us"
+  >
     <div class="about-us-info">
-      <h1 class="about-us-desc">About Us</h1>
+      <h1 class="about-us-desc">
+        About Us
+      </h1>
       <p class="about-us-p">
         We are Software Engineers students from TUM university...
       </p>
     </div>
     <div class="team">
       <div class="adelia">
-        <img class="team-img" src="../img/gabi.jpg" />
-        <h1 class="member-name">Gabriel Gîtlan</h1>
-        <h2 class="member-post">DevOps</h2>
+        <img
+          class="team-img"
+          src="../img/gabi.jpg"
+        >
+        <h1 class="member-name">
+          Gabriel Gîtlan
+        </h1>
+        <h2 class="member-post">
+          DevOps
+        </h2>
       </div>
       <div class="adelia">
-        <img class="team-img" src="../img/andrei.jpg" />
-        <h1 class="member-name">Andrei Sărăteanu</h1>
-        <h2 class="member-post">Back-End</h2>
+        <img
+          class="team-img"
+          src=".ю/img/andrei.jpg"
+        >
+        <h1 class="member-name">
+          Andrei Sărăteanu
+        </h1>
+        <h2 class="member-post">
+          Back-End
+        </h2>
       </div>
       <div class="adelia">
-        <img class="team-img" src="../img/adelia.jpg" />
-        <h1 class="member-name">Adelia Braguţa</h1>
-        <h2 class="member-post">Front-End</h2>
+        <img
+          class="team-img"
+          src="../img/adelia.jpg"
+        >
+        <h1 class="member-name">
+          Adelia Braguţa
+        </h1>
+        <h2 class="member-post">
+          Front-End
+        </h2>
       </div>
       <div class="adelia">
-        <img class="team-img" src="../img/valeria.jpg" />
-        <h1 class="member-name">Valeria Cozlov</h1>
-        <h2 class="member-post">UI/UX Design</h2>
+        <img
+          class="team-img"
+          src="../img/valeria.jpg"
+        >
+        <h1 class="member-name">
+          Valeria Cozlov
+        </h1>
+        <h2 class="member-post">
+          UI/UX Design
+        </h2>
       </div>
       <div class="adelia">
-        <img class="team-img" src="../img/grigore.jpg" />
-        <h1 class="member-name">Grigore Guzun</h1>
-        <h2 class="member-post">Back-End</h2>
+        <img
+          class="team-img"
+          src="../img/grigore.jpg"
+        >
+        <h1 class="member-name">
+          Grigore Guzun
+        </h1>
+        <h2 class="member-post">
+          Back-End
+        </h2>
       </div>
       <div class="adelia">
-        <img class="team-img" src="../img/tudor.jpg" />
-        <h1 class="member-name">Tudor Sîrghi</h1>
-        <h2 class="member-post">Project Manager</h2>
+        <img
+          class="team-img"
+          src="../img/tudor.jpg"
+        >
+        <h1 class="member-name">
+          Tudor Sîrghi
+        </h1>
+        <h2 class="member-post">
+          Project Manager
+        </h2>
       </div>
     </div>
   </section>
@@ -230,6 +322,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .home {
   position: relative;
+  z-index: 1000;
   height: 100vh;
   width: auto;
   display: flex;
@@ -304,7 +397,7 @@ onMounted(() => {
       top: 95px;
       transform: rotate(5deg);
       @media screen and (max-width: 544px) {
-        top: 95px;
+        top: 44px;
         transform: rotate(0deg);
       }
     }
@@ -317,9 +410,9 @@ onMounted(() => {
       right: 190px;
       transform: rotate(-5deg);
       @media screen and (max-width: 544px) {
-        top: 180px;
+        top: 114px;
         right: 30px;
-        transform: rotate(5deg);
+        transform: rotate(-5deg);
       }
     }
 
@@ -332,8 +425,9 @@ onMounted(() => {
 
       transform: rotate(5deg);
       @media screen and (max-width: 544px) {
-        bottom: 180px;
+        bottom: 114px;
         right: 30px;
+        transform: rotate(5deg);
       }
     }
     &:nth-of-type(4) {
@@ -344,7 +438,7 @@ onMounted(() => {
 
       transform: rotate(-5deg);
       @media screen and (max-width: 544px) {
-        bottom: 95px;
+        bottom: 44px;
       }
     }
     &:nth-of-type(5) {
@@ -356,12 +450,13 @@ onMounted(() => {
 
       transform: rotate(-5deg);
       @media screen and (max-width: 544px) {
-        top: 180px;
+        top: 124px;
         left: 30px;
+        transform: rotate(5deg);
       }
     }
     &:nth-of-type(6) {
-      bottom: 190px;
+      bottom: 114px;
       left: 290px;
       --bg-color: #8b7ab8;
       --txt-color: #8b7ab8;
@@ -369,8 +464,9 @@ onMounted(() => {
 
       transform: rotate(3deg);
       @media screen and (max-width: 544px) {
-        bottom: 180px;
+        bottom: 114px;
         left: 30px;
+        transform: rotate(-3deg);
       }
     }
   }
@@ -415,8 +511,8 @@ onMounted(() => {
       height: 32px;
     }
     &:nth-of-type(2) {
-      height: 90px;
-      // transform: scale(1.3);
+      // height: 90px;
+      transform: scale(1.3);
     }
   }
 }
@@ -473,7 +569,6 @@ onMounted(() => {
 .see-more {
   margin: 0 100px;
   display: block;
-  border-radius: 16px;
   transition-property: box-shadow, transform;
   transition: 0.3s ease;
   will-change: box-shadow, transform;
@@ -483,11 +578,24 @@ onMounted(() => {
   font-size: 24px;
   text-align: center;
   margin-bottom: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
   @media screen and (max-width: 544px) {
+    margin: 0;
+    margin: 0 0 96px 0;
+    font-size: 24px;
   }
 
   &:hover {
     transform: scale(1.05);
+  }
+  .icon {
+    height: 32px;
+    width: 32px;
+    color: var(--bg-color);
   }
 }
 
@@ -628,7 +736,7 @@ onMounted(() => {
         display: grid;
         grid-template-columns: 1fr 2fr;
         @media screen and (max-width: 1555px) {
-          gap: 24px;
+          column-gap: 12px;
         }
         @media screen and (max-width: 544px) {
           // column-gap: 24px;
@@ -732,16 +840,17 @@ onMounted(() => {
       filter: grayscale(100%);
       opacity: 90%;
       @media screen and (max-width: 544px) {
-        opacity: 100%;
-        filter: grayscale(0%);
+        opacity: 90%;
+        filter: grayscale(100%);
       }
       &:hover {
         transform: scale(1.3) rotate(1deg);
         filter: grayscale(0%);
         opacity: 100%;
         @media screen and (max-width: 544px) {
-          transform: none;
-          cursor: none;
+          transform: scale(1.3) rotate(1deg);
+          filter: grayscale(0%);
+          opacity: 1;
         }
       }
       &:hover:nth-of-type(2n) {

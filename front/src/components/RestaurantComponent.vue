@@ -1,14 +1,44 @@
 <script setup>
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
 import HasTag from "./HashTag.vue";
 import HashTag from "./HashTag.vue";
-import SubsidiaryVue from "./Subsidiary.vue";
+import SubsidiaryVue from "./SubsidiaryComponent.vue";
 const route = useRoute();
 const dd = ref(route.params);
 
 const tags = ["Pizza", "Vegetarian", "Vegan"];
+const foods = ref([
+  {
+    title: "Pizza Ranccho",
+    ingridients: "rucola, tomatoes, chocolate",
+    price: "105.00 mdl",
+  },
+  {
+    title: "Pizza",
+    ingridients:"rucola, tomatoes, chocolate",
+
+    price: "105.00 mdl",
+  },
+  {
+    title: "Pizza Ranccho Ranccho",
+    ingridients: "rucola, tomatoes, chocolate",
+
+    price: "15.00 mdl",
+  },
+  {
+    title: "Pizza Ranccho cu Ranccho",
+    ingridients: "rucola, tomatoes, chocolate",
+
+    price: "105.00 mdl",
+  },
+  {
+    title: "Pizza cu Ranccho",
+    ingridients: "rucola, tomatoes, chocolate",
+    price: "1005.00 mdl",
+  },
+]);
 const subsidiaries = [
   {
     title: "AndysPizza Nr.1",
@@ -35,47 +65,83 @@ const subsidiaries = [
     schedule: "09:30 - 23:00",
   },
 ];
+const post = ref([]);
+onMounted(() => {
+  fetch(
+    "https://jsonplaceholder.typicode.com/posts"
+    // , {
+    //   method: "PATCH",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     title: "ada",
+    //   }),}
+  ).then((response) => response.json().then((data) => (post.value = data)));
+});
 </script>
 
 <template>
   <div>
     <div class="restaurant">
       <div class="rest">
-        <h1 class="rest-name">Andys Pizza</h1>
+        <h1 class="rest-name">
+          Andys Pizza
+        </h1>
         <div class="details">
-          <h2 class="description">DETAILS</h2>
+          <h2 class="description">
+            DETAILS
+          </h2>
           <div class="rest-info">
             <h3 class="rest-den">
-              <Icon class="btn-icon" icon="uil:receipt-alt" />Type:
+              <Icon
+                class="btn-icon"
+                icon="uil:receipt-alt"
+              />Type:
             </h3>
-            <h3 class="rest-text">Pizzeria</h3>
+            <h3 class="rest-text">
+              Pizzeria
+            </h3>
             <h3 class="rest-den">
-              <Icon class="btn-icon" icon="uil:pricetag-alt" />Prices Level:
+              <Icon
+                class="btn-icon"
+                icon="uil:pricetag-alt"
+              />Prices Level:
             </h3>
-            <h3 class="rest-text dollar">$ $ $</h3>
+            <h3 class="rest-text dollar">
+              $ $ $
+            </h3>
           </div>
         </div>
         <div class="contact">
-          <h2 class="description">CONTACT INFORMATION</h2>
+          <h2 class="description">
+            CONTACT INFORMATION
+          </h2>
           <div class="rest-info">
             <h3 class="rest-den">
-              <Icon class="btn-icon" icon="uil:phone-alt" />Phone:
+              <Icon
+                class="btn-icon"
+                icon="uil:phone-alt"
+              />Phone:
             </h3>
-            <a class="rest-text" href="tel: +373 788 699 18"
-              >(+373) 788 699 18</a
-            >
+            <a
+              class="rest-text"
+              href="tel: +373 788 699 18"
+            >(+373) 788 699 18</a>
             <h3 class="rest-den">
-              <Icon class="btn-icon" icon="uil:envelope" />Email:
+              <Icon
+                class="btn-icon"
+                icon="uil:envelope"
+              />Email:
             </h3>
-            <a class="rest-text" href="mailto:abc@example.com"
-              >menuHub@gmail.com</a
-            >
+            <a
+              class="rest-text"
+              href="mailto:abc@example.com"
+            >menuHub@gmail.com</a>
           </div>
         </div>
       </div>
       <div class="rest-img">
         <div class="rest-image">
-          <img src="../img/andys.jpg" />
+          <img src="../img/andys.jpg">
         </div>
 
         <!-- <template v-for="tag in tags">
@@ -84,89 +150,134 @@ const subsidiaries = [
       </div>
     </div>
     <div class="restaurant-menu">
-      <div class="btn-menu food-category">
-        <Icon class="btn-icon" icon="uil:restaurant" />
+      <RouterLink
+        class="btn-menu food-category"
+        :to="{ path: '/restaurants/:id', hash: '#food-menu' }"
+      >
+        <div class="btn-align">
+          <Icon
+            class="btn-icon"
+            icon="uil:restaurant"
+          />
+          <a class="btn-text">Food Menu</a>
+        </div>
+      </RouterLink>
+      <RouterLink
+        class="btn-menu drink-category"
+        :to="{ path: '/restaurants/:id', hash: '#drink-menu' }"
+      >
+        <div class="btn-align">
+          <Icon
+            class="btn-icon"
+            icon="uil:glass-martini"
+          />
+          <a class="btn-text">Drink Menu</a>
+        </div>
+      </RouterLink>
+      <RouterLink
+        class="btn-menu advertisment-category"
+        :to="{ path: '/restaurants/:id', hash: '#advertisment' }"
+      >
+        <div class="btn-align">
+          <Icon
+            class="btn-icon"
+            icon="uil:star"
+          />
 
-        <a href="#" class="btn-text">Food Menu</a>
-      </div>
-      <div class="btn-menu drink-category">
-        <Icon class="btn-icon" icon="uil:glass-martini" />
-        <a href="#" class="btn-text">Drink Menu</a>
-      </div>
-      <div class="btn-menu advertisment-category">
-        <Icon class="btn-icon" icon="uil:star" />
-        <a href="#" class="btn-text">Subsidiaries</a>
-      </div>
+          <a class="btn-text">Subsidiaries</a>
+        </div>
+      </RouterLink>
     </div>
 
-    <div class="block-menu food-category food">
+    <div
+      id="food-menu"
+      class="block-menu food-category food"
+    >
       <div class="menu-description">
-        <Icon class="menu-icon" icon="uil:restaurant" />
-        <h1 class="menu-text">Food Menu</h1>
+        <Icon
+          class="menu-icon"
+          icon="uil:restaurant"
+        />
+        <h1 class="menu-text">
+          Food Menu
+        </h1>
       </div>
       <div class="llist">
         <ul class="list">
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
+          <li
+            v-for="food in foods"
+            :key="food.title"
+            class="list-item"
+          >
+            <img
+              class="menu-img"
+              src="../img/adelia.jpg"
+            >
+            <h2 class="title">
+              {{ food.title }}
+            </h2>
+            <h3 class="ingridiets">
+              {{ food.ingridients }}
+            </h3>
+            <h3 class="price">
+              {{ food.price }}
+            </h3>
           </li>
         </ul>
       </div>
     </div>
 
-    <div class="block-menu drink-category drink">
+    <div
+      id="drink-menu"
+      class="block-menu drink-category drink"
+    >
       <div class="menu-description">
-        <Icon class="menu-icon" icon="uil:glass-martini" />
-        <h1 class="menu-text">Drink Menu</h1>
+        <Icon
+          class="menu-icon"
+          icon="uil:glass-martini"
+        />
+        <h1 class="menu-text">
+          Drink Menu
+        </h1>
       </div>
       <div class="llist">
         <ul class="list">
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
-          </li>
-          <li class="list-item">
-            <h2 class="title">Pizza Rancho</h2>
-            <h3 class="price">105.00 mdl</h3>
+          <li
+            v-for="p in post"
+            :key="p.id"
+            class="list-item"
+          >
+            <h2
+              class="title"
+            >
+              {{ p.title }}
+            </h2>
+
+            <h3 class="price">
+              {{ p.id }}
+            </h3>
           </li>
         </ul>
       </div>
     </div>
-    <div class="block-menu advertisment-category adv">
+    <div
+      id="advertisment"
+      class="block-menu advertisment-category adv"
+    >
       <div class="menu-description">
-        <Icon class="menu-icon" icon="uil:star" />
-        <h1 class="menu-text">Subsidiaries</h1>
+        <Icon
+          class="menu-icon"
+          icon="uil:star"
+        />
+        <h1 class="menu-text">
+          Subsidiaries
+        </h1>
       </div>
       <div class="subsidiaries">
-        <template v-for="subsidiary in subsidiaries">
+        <template
+          v-for="subsidiary in subsidiaries"
+          :key="subsidiary.title"
+        >
           <SubsidiaryVue
             :title="subsidiary.title"
             :address="subsidiary.address"
@@ -388,21 +499,16 @@ const subsidiaries = [
     justify-content: center;
   }
   .btn-menu {
+    text-decoration: none;
     padding: 32px 48px;
     border-radius: 8px;
     transition-property: box-shadow, transform;
     transition: 0.3s ease;
     will-change: box-shadow, transform;
-    display: flex;
-    gap: 24px;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-    justify-content: space-between;
-    align-items: center;
+
     @media screen and (max-width: 544px) {
-      padding: 24px 18px;
-      gap: 16px;
-      align-items: center;
-      justify-content: center;
+      padding: 24px 10px;
       width: 166px;
       align-self: center;
       justify-self: center;
@@ -417,22 +523,36 @@ const subsidiaries = [
       box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
       background-color: var(--bg-color);
     }
-    .btn-icon {
-      font-size: 3rem;
-      color: var(--text-color);
+    .btn-align {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+
       @media screen and (max-width: 544px) {
-        font-size: 18px;
+        gap: 8px;
       }
-    }
-    .btn-text {
-      font-size: 24px;
-      font-weight: 700px;
-      text-decoration: none;
-      display: block;
-      color: var(--text-color);
-      // color: #333;
-      @media screen and (max-width: 544px) {
-        font-size: 18px;
+
+      .btn-icon {
+        height: 48px;
+        width: 48px;
+        // font-size: 3rem;
+        color: var(--text-color);
+        @media screen and (max-width: 544px) {
+          height: 24px;
+          width: 24px;
+        }
+      }
+      .btn-text {
+        font-size: 24px;
+        font-weight: 700px;
+        display: block;
+        color: var(--text-color);
+        text-decoration: none;
+        // color: #333;
+        @media screen and (max-width: 544px) {
+          font-size: 18px;
+        }
       }
     }
   }
@@ -440,7 +560,6 @@ const subsidiaries = [
 
 .block-menu {
   background-color: var(--bg-color);
-
   padding: 48px 100px;
   margin: 100px 0px;
   letter-spacing: 0.75px;
@@ -488,38 +607,54 @@ const subsidiaries = [
     padding: 0;
     list-style-type: none;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 32px;
-    justify-content: center;
+    column-gap: 128px;
+    justify-content: space-between;
     align-items: center;
-    padding: 48px 96px;
+    padding: 48px 0px;
     @media screen and (max-width: 544px) {
       grid-template-columns: 1fr;
       padding: 48px 0px;
     }
     .list-item {
       display: flex;
-      gap: 64px;
+      flex-direction: column ;
       align-items: center;
-      justify-content: space-around;
+      gap: 8px;
+      width: 320px;
       @media screen and (max-width: 544px) {
-        gap: 32px;
         // justify-content: space-between;
+        column-gap: 48px;
       }
       .title {
         margin: 0;
+        padding-top: 8px ;
         color: var(--text-color);
-        color: #767676;
-        font-size: 30px;
+        font-size: 24px;
         font-weight: 500;
         @media screen and (max-width: 544px) {
           font-size: 24px;
         }
       }
+      .menu-img{
+        margin: 0 ;
+        height: 300px;
+        border-radius: 1rem;
+
+      }
+      .ingridiets{
+        margin: 0 ;
+        color: #767676;
+        font-size: 18px;
+        font-weight: 400;
+
+      }
       .price {
-        margin: 0;
+        margin: 0 ;
+        padding-top: 8px ;
         color: #888;
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 400;
         @media screen and (max-width: 544px) {
           font-size: 18px;

@@ -2,11 +2,10 @@
 import { ref } from "vue";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "./components/HelloWorld.vue";
 import NavBar from "./components/NavBar.vue";
-import Footer from "./components/Footer.vue";
-// import NavBarMobVue from "./components/NavBarMob.vue";
-import { Icon } from "@iconify/vue";
+import Footer from "./components/FooterComponent.vue";
+import NavBarMobVue from "./components/NavBarMob.vue";
+
 
 const x = ref(true);
 // export default {
@@ -21,22 +20,21 @@ const x = ref(true);
 //       this.mobileView = window.innerWidth <= 544;
 //     },
 //   },
-//   created() {
+//   mounted() {
 //     this.handleView();
 //   },
 // };
 </script>
 
 <template>
-  <NavBar :force-show="x"></NavBar>
-  <NavBarMobVue>
-    <!-- <div class="nav-mob">
-      <Icon class="icon" icon="ph:list-bold" />
-    </div> -->
-  </NavBarMobVue>
+  <NavBar :force-show="x" />
+  <NavBarMobVue :force-show="x" />
   <router-view v-slot="{ Component }">
     <transition name="fade">
-      <component :is="Component" @show-tipa="($event) => (x = $event)" />
+      <component
+        :is="Component"
+        @show-tipa="($event) => (x = $event)"
+      />
       <!-- @show-nav="($event) => (x = $event)" -->
     </transition>
   </router-view>
@@ -54,16 +52,7 @@ const x = ref(true);
 .fade-leave-to {
   opacity: 0;
 }
-// .nav-mob {
-//   .icon {
-//     margin: 32px;
-//     height: 32px;
-//     width: 32px;
-//     position: fixed;
-//     z-index: 100;
-//     color: var(--verde);
-//   }
-// }
+
 // #app {
 //   background-color: #ffffff;
 //   // opacity: 0.4;

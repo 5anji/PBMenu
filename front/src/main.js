@@ -2,9 +2,9 @@ import { createApp } from "vue";
 import "normalize.css";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "./components/Home.vue";
-import Restaurants from "./components/Restaurants.vue";
-import Restaurant from "./components/Restaurant.vue";
+import Home from "./components/HomeComponent.vue";
+import Restaurants from "./components/RestaurantsComponent.vue";
+import Restaurant from "./components/RestaurantComponent.vue";
 import "./style.css";
 
 const router = createRouter({
