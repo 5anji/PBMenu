@@ -21,7 +21,9 @@ Site to review menus of any restaurant in Republic of Moldova, made by a group o
 
     ```bash
     sudo mkdir -p /opt/menuhub
+    sudo mkdir -p /opt/menuhub/assets
     sudo cp ./bin/build/tablo_jar.jar /opt/menuhub/
+    sudo cp -r ./assets/web/* /opt/menuhub/assets/
     sudo cp ./bin/run-server /usr/bin/
     systemctl status nginx
     ```
