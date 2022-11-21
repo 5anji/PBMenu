@@ -136,14 +136,6 @@ paths:
                 properties:
                   restaurant:
                     $ref: "#/components/schemas/Restaurant"
-                  subsidiaries:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Subsidiary"
-                  food:
-                    $ref: "#/components/schemas/Food"
-                  drinks:
-                    $ref: "#/components/schemas/Drink"
         "400":
           description: Invalid ID supplied
         "404":
