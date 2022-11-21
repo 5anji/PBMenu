@@ -2,39 +2,23 @@
 import { ref, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
 import SubsidiaryVue from "./SubsidiaryComponent.vue";
-import {getRestaurant} from "../api";
+import {getRestaurant,getRestaurantSubsidiary, getRestaurantFood, getRestaurantDrink} from "../api";
+
 import { useRoute } from 'vue-router'
 const restaurant = ref({});
-const subsidiaries = [
-  {
-    title: "AndysPizza Nr.1",
-    address: "bd. Ştefan cel Mare, 152",
-    tel: "+373 22 265-434",
-    schedule: "09:30 - 23:00",
-  },
-  {
-    title: "AndysPizza Nr.1",
-    address: "bd. Ştefan cel Mare, 152",
-    tel: "+373 22 265-434",
-    schedule: "09:30 - 23:00",
-  },
-  {
-    title: "AndysPizza Nr.1",
-    address: "bd. Ştefan cel Mare, 152",
-    tel: "+373 22 265-434",
-    schedule: "09:30 - 23:00",
-  },
-  {
-    title: "AndysPizza Nr.1",
-    address: "bd. Ştefan cel Mare, 152",
-    tel: "+373 22 265-434",
-    schedule: "09:30 - 23:00",
-  },
-];
+const subsidiaries = ref([]);
+const food = ref([]);
+const drink =ref([])
 const route = useRoute();
 onMounted(() => {
   getRestaurant({restaurantId: route.params.id})
       .then(({data}) => (restaurant.value=data))
+  getRestaurantSubsidiary({restaurantId: route.params.id, pages: 1, nrOfItems: 10})
+      .then(({data}) => (subsidiaries.value =data))
+  getRestaurantFood({restaurantId: route.params.id, pages: 1, nrOfItems: 10})
+      .then(({data}) => (food.value = data))
+  getRestaurantDrink({restaurantId: route.params.id, pages: 1, nrOfItems: 10})
+      .then(({data}) => (drink.value =data))
 });
 </script>
 
@@ -178,8 +162,8 @@ onMounted(() => {
       <div class="llist">
         <ul class="list">
           <li
-            v-for="food in foods"
-            :key="food.title"
+            v-for="meal in food"
+            :key="meal.restaurantId"
             class="list-item"
           >
             <img
@@ -188,13 +172,13 @@ onMounted(() => {
               alt="item image"
             >
             <h2 class="title">
-              {{ food.title }}
+              {{ meal.foodName }}
             </h2>
             <h3 class="ingredients">
-              {{ food.ingridients }}
+              {{ meal.foodIngredients }}
             </h3>
             <h3 class="price">
-              {{ food.price }}
+              {{ meal.foodPrice }} MDL
             </h3>
           </li>
         </ul>
@@ -217,18 +201,18 @@ onMounted(() => {
       <div class="llist">
         <ul class="list">
           <li
-            v-for="p in post"
-            :key="p.id"
+            v-for="d in drink"
+            :key="d.restaurantId"
             class="list-item"
           >
             <h2
               class="title"
             >
-              {{ p.title }}
+              {{ d.drinkName }}
             </h2>
 
             <h3 class="price">
-              {{ p.id }}
+              {{ d.drinkPrice }} MDL
             </h3>
           </li>
         </ul>
@@ -250,12 +234,12 @@ onMounted(() => {
       <div class="subsidiaries">
         <template
           v-for="subsidiary in subsidiaries"
-          :key="subsidiary.title"
+          :key="subsidiary.Id"
         >
           <SubsidiaryVue
-            :title="subsidiary.title"
+            :title="subsidiary.subsidiaryName"
             :address="subsidiary.address"
-            :tel="subsidiary.tel"
+            :tel="subsidiary.phoneNumber"
             :schedule="subsidiary.schedule"
           />
         </template>
