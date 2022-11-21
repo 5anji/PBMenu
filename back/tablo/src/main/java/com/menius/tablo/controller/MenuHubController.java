@@ -112,6 +112,12 @@ public class MenuHubController {
         return subsidiaryService.getSubsidiaryById(subsidiaryId);
     }
 
+    @DeleteMapping("/subsidiary/{subsidiaryId}")
+    @ResponseStatus(OK)
+    public void deleteSubsidiaryById(@PathVariable UUID subsidiaryId) {
+        subsidiaryService.deleteSubsidiary(subsidiaryId);
+    }
+
     @GetMapping("/restaurant/{restaurantId}/subsidiary")
     @ResponseStatus(OK)
     public List<SubsidiaryGetResponseDto> getSubsidiaryByRestaurantId(@PathVariable UUID restaurantId, @RequestParam int pages, @RequestParam int nrOfItems) {
