@@ -17,7 +17,6 @@ import { useRoute } from "vue-router";
 // };
 const isShow = ref(false);
 
-const scrollRef = ref({});
 const props = defineProps({
   "forceShow":{
     type: Boolean,
@@ -153,7 +152,7 @@ watch(route, (x) => {
   }
   .nav-mob {
     // position: relative;
-    margin: 0;
+    margin: 84px 0 0 0;
     background-color: rgba(255, 255, 255, 0.9);
 
     backdrop-filter: blur(3px);
@@ -169,15 +168,13 @@ watch(route, (x) => {
     // height: calc(100vh - 400px);
     width: 100vw;
     padding: 52px 32px 32px 32px;
-    margin-top: 84px;
 
     .social-links {
-      padding: 0;
+      padding:24px 0 0 0;
       margin: 0;
       list-style: none;
       display: flex;
       gap: 24px;
-      padding-top: 24px;
 
       // grid-row: 2;
       // justify-content: center;

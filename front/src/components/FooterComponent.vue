@@ -66,20 +66,20 @@ import { Icon } from "@iconify/vue";
 
 <style scoped lang="scss">
 .footer {
-  padding: 100px 100px;
+  padding: 100px 400px;
   border-top: 1px solid #ddd;
   color: #888;
   text-align: center;
   bottom: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: auto auto;
   gap: 100px;
   justify-content: center;
-  width: 0 auto;
+  justify-items: center;
   @media screen and (max-width: 544px) {
     display: flex;
-    padding: 64px 32px;
-    gap: 0px;
+    padding: 96px 32px;
+    gap: 0;
   }
 
   .footer1 {

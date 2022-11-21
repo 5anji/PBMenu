@@ -4,29 +4,19 @@ import RestaurantItem from "./RestaurantItem.vue";
 import Restaurant from "./RestaurantComponent.vue";
 import HomeComponents from "./HomeComponents.vue";
 import { Icon } from "@iconify/vue";
+import {getRestaurantAll} from "../api";
 
 // const list = ref([]);
-const list = ref([
-  { title: "Andy's Pizza", description: "Pizzeria" },
-  { title: "Tratoria", description: "Italian Restaurant" },
-  { title: "Oro", description: "Restaurant" },
-  { title: "Granier", description: "Cafe" },
-  { title: "Sincer", description: "Italian Restaurant" },
-  { title: "Mojito", description: "Restaurant" },
-  { title: "Mojo", description: "Pizzeria" },
-  { title: "TaxiBlues", description: "Italian Restaurant" },
-  { title: "Momo", description: "Asian Restaurant" },
-]);
-// onMounted(() => {
-//   fetch("http://localhost:3000/list")
-//     .then((response) => response.json())
-//     .then((data) => (list.value = data));
-// });
+const list = ref([]);
+onMounted(() => {
+  getRestaurantAll({pages: 1, nrOfItems: 6})
+      .then(({data}) => (list.value =data))
+});
 
 const emit = defineEmits(["show-nav", "show-tipa"]);
 
 const currentSection = ref("");
-const tipa = ref(false);
+// const tipa = ref(false);
 
 watch(currentSection, (val) => {
   emit("show-nav", val !== "home");
@@ -61,16 +51,17 @@ onMounted(() => {
       <img
         class="home-img"
         src="../img/Logo.png"
+        alt="MenuHub logo"
       >
     </div>
     <template
-      v-for="item in list.slice(3, 10)"
-      :key="item.title"
+      v-for="item in list"
+      :key="item.restaurantId"
     >
       <router-link
-        :to="{ name: 'Restaurant', params: { id: item } }"
+        :to="{ name: 'Restaurant', params: { id: item.restaurantId } }"
       >
-        <home-components :title="item.title" />
+        <home-components :title="item.restaurantName" />
       </router-link>
     </template>
     <span />
@@ -111,14 +102,14 @@ onMounted(() => {
     <div class="top-restaurants">
       <div
         v-for="item in list.slice(0, 3)"
-        :key="item.title"
+        :key="item.restaurantId"
       >
         <router-link
           class="restaurant-info"
-          :to="{ name: 'Restaurant', params: { id: item } }"
+          :to="{ name: 'Restaurant', params: { id: item.restaurantId } }"
         >
           <restaurant-item
-            :title="item.title"
+            :title="item.restaurantName"
             :description="item.description"
           />
         </router-link>
@@ -146,6 +137,7 @@ onMounted(() => {
           <img
             class="gallery-img"
             src="../img/louis-hansel--rUVo0vua1M-unsplash1.jpg"
+            alt="people testimonial"
           >
         </div>
       </div>
@@ -248,6 +240,7 @@ onMounted(() => {
         <img
           class="team-img"
           src="../img/gabi.jpg"
+          alt="member Gabriel"
         >
         <h1 class="member-name">
           Gabriel Gîtlan
@@ -259,7 +252,8 @@ onMounted(() => {
       <div class="adelia">
         <img
           class="team-img"
-          src=".ю/img/andrei.jpg"
+          src="../img/andrei.jpg"
+          alt="member Andrei"
         >
         <h1 class="member-name">
           Andrei Sărăteanu
@@ -272,6 +266,7 @@ onMounted(() => {
         <img
           class="team-img"
           src="../img/adelia.jpg"
+          alt="member Adelia"
         >
         <h1 class="member-name">
           Adelia Braguţa
@@ -284,6 +279,7 @@ onMounted(() => {
         <img
           class="team-img"
           src="../img/valeria.jpg"
+          alt="member Valeria"
         >
         <h1 class="member-name">
           Valeria Cozlov
@@ -295,7 +291,8 @@ onMounted(() => {
       <div class="adelia">
         <img
           class="team-img"
-          src="../img/grigore.jpg"
+          src="../img/photo_2022-11-21_15-05-59.jpg"
+          alt="member Grigore"
         >
         <h1 class="member-name">
           Grigore Guzun
@@ -308,6 +305,7 @@ onMounted(() => {
         <img
           class="team-img"
           src="../img/tudor.jpg"
+          alt="member Tudor"
         >
         <h1 class="member-name">
           Tudor Sîrghi
@@ -476,8 +474,7 @@ onMounted(() => {
   padding: 48px 0 32px 0;
   margin-bottom: 96px;
   @media screen and (max-width: 544px) {
-    margin: 0;
-    margin-bottom: 48px;
+    margin:0 0 48px 0;
   }
 
   .heading-featured-in {
@@ -534,13 +531,12 @@ onMounted(() => {
   letter-spacing: 0.75px;
   @media screen and (max-width: 544px) {
     font-size: 36px;
-    margin: 0;
-    margin-left: 24px;
+    margin: 0 24px 0 0;
   }
 }
 .top-restaurants {
   display: grid;
-  margin: 96px 0px;
+  margin: 96px 0;
 
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
@@ -556,7 +552,6 @@ onMounted(() => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    justify-content: center;
     margin: 64px 0;
     gap: 64px;
   }
@@ -567,8 +562,7 @@ onMounted(() => {
   }
 }
 .see-more {
-  margin: 0 100px;
-  display: block;
+  margin: 0 100px 96px 0;
   transition-property: box-shadow, transform;
   transition: 0.3s ease;
   will-change: box-shadow, transform;
@@ -577,14 +571,12 @@ onMounted(() => {
   font-weight: 500;
   font-size: 24px;
   text-align: center;
-  margin-bottom: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
 
   @media screen and (max-width: 544px) {
-    margin: 0;
     margin: 0 0 96px 0;
     font-size: 24px;
   }
@@ -608,7 +600,7 @@ onMounted(() => {
   );
   background-size: 18px 18px;
   padding: 96px 96px 96px 48px;
-  box-shadow: hsl(277deg 32% 95%) 0px 0px 20px 10px;
+  box-shadow: hsl(277deg 32% 95%) 0 0 20px 10px;
   @media screen and (max-width: 544px) {
     padding: 48px 0;
     margin-bottom: 32px;
@@ -690,8 +682,7 @@ onMounted(() => {
         grid-template-columns: 1fr;
         gap: 48px;
         justify-content: center;
-        padding: 0;
-        padding-bottom: 32px;
+        padding: 0 0 32px 0;
         justify-self: center; // margin: 32px;
       }
 
@@ -706,8 +697,8 @@ onMounted(() => {
         background-color: white;
         border-radius: 1rem;
         padding: 32px 32px;
-        box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
-          rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        box-shadow: rgba(17, 17, 26, 0.05) 0 4px 16px,
+          rgba(17, 17, 26, 0.05) 0 8px 32px;
         transition-property: box-shadow, transform;
         transition: 0.3s ease;
         will-change: box-shadow, transform;
@@ -718,11 +709,10 @@ onMounted(() => {
           // width: 300px;
           background-color: transparent;
           box-shadow: none;
-          padding: 0;
         }
 
         &:hover {
-          box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+          box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
           transform: scale(1.15);
           @media screen and (max-width: 544px) {
             box-shadow: none;
@@ -756,10 +746,9 @@ onMounted(() => {
 
         .testimonial-text {
           padding: 0;
-          margin: 0;
+          margin: 0 0 16px 0 ;
           font-size: 18px;
           line-height: 1.8;
-          margin-bottom: 16px;
           color: var(--violetInchis);
           font-weight: 400;
           @media screen and (max-width: 544px) {
@@ -806,8 +795,7 @@ onMounted(() => {
       padding-bottom: 48px;
       @media screen and (max-width: 544px) {
         font-size: 24px;
-        padding: 0;
-        padding-bottom: 48px;
+        padding: 0 0 48px 0;
       }
     }
   }
@@ -860,7 +848,7 @@ onMounted(() => {
     .team-img {
       height: 200px;
       border-radius: 16px;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+      box-shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
       @media screen and (max-width: 544px) {
         height: 110px;
@@ -882,7 +870,6 @@ onMounted(() => {
       font-weight: 400;
       font-size: 18px;
       letter-spacing: 0.75px;
-      color: #767676;
       color: var(--violetInchis);
       @media screen and (max-width: 544px) {
         font-size: 16px;

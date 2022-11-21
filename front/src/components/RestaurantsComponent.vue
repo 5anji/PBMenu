@@ -2,27 +2,20 @@
 // import { routerKey } from "vue-router";
 
 // import { computed } from "@vue/reactivity";
-import { ref, } from "vue";
+import { ref, onMounted} from "vue";
 import RestaurantItem from "./RestaurantItem.vue";
 import Restaurant from "./RestaurantComponent.vue";
+import {getRestaurantAll} from "../api";
 
-const list = ref([
-  { title: "Andy's Pizza", description: "Pizzeria" },
-  { title: "Tratoria", description: "Italian Restaurant" },
-  { title: "Oro", description: "Restaurant" },
-  { title: "Granier", description: "Cafe" },
-  { title: "Sincer", description: "Italian Restaurant" },
-  { title: "Mojito", description: "Restaurant" },
-  { title: "Mojo", description: "Pizzeria" },
-  { title: "TaxiBlues", description: "Italian Restaurant" },
-  { title: "Momo", description: "Asian Restaurant" },
-]);
+const list = ref([]);
 
-// onMounted(() => {
-//   fetch("http://localhost:3000/list")
-//     .then((response) => response.json())
-//     .then((data) => (list.value = data));
-// });
+onMounted(() => {
+  // fetch("http://localhost:3000/list")
+  //   .then((response) => response.json())
+  //   .then((data) => (list.value = data));
+  getRestaurantAll({pages: 1, nrOfItems: 10})
+      .then(({data}) => (list.value = data))
+});
 </script>
 
 <template>
@@ -34,15 +27,15 @@ const list = ref([
     <div class="restaurants">
       <div
         v-for="item in list"
-        :key="item.title"
+        :key="item.restaurantId"
         class="restaurants-for"
       >
         <router-link
           class="restaurant-info"
-          :to="{ name: 'Restaurant', params: { id: item } }"
+          :to="{ name: 'Restaurant', params: { id: item.restaurantId } }"
         >
           <restaurant-item
-            :title="item.title"
+            :title="item.restaurantName"
             :description="item.description"
           />
         </router-link>

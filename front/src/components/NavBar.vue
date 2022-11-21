@@ -1,8 +1,7 @@
 <script setup>
-import { watch, ref, onMounted, onUnmounted } from "vue";
+import { watch, ref } from "vue";
 import { useRoute } from "vue-router";
 
-const scrollRef = ref({});
 const props = defineProps({
   "forceShow": {
     type: Boolean,

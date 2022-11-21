@@ -1,44 +1,10 @@
 <script setup>
-import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
-import HasTag from "./HashTag.vue";
-import HashTag from "./HashTag.vue";
 import SubsidiaryVue from "./SubsidiaryComponent.vue";
-const route = useRoute();
-const dd = ref(route.params);
-
-const tags = ["Pizza", "Vegetarian", "Vegan"];
-const foods = ref([
-  {
-    title: "Pizza Ranccho",
-    ingridients: "rucola, tomatoes, chocolate",
-    price: "105.00 mdl",
-  },
-  {
-    title: "Pizza",
-    ingridients:"rucola, tomatoes, chocolate",
-
-    price: "105.00 mdl",
-  },
-  {
-    title: "Pizza Ranccho Ranccho",
-    ingridients: "rucola, tomatoes, chocolate",
-
-    price: "15.00 mdl",
-  },
-  {
-    title: "Pizza Ranccho cu Ranccho",
-    ingridients: "rucola, tomatoes, chocolate",
-
-    price: "105.00 mdl",
-  },
-  {
-    title: "Pizza cu Ranccho",
-    ingridients: "rucola, tomatoes, chocolate",
-    price: "1005.00 mdl",
-  },
-]);
+import {getRestaurant} from "../api";
+import { useRoute } from 'vue-router'
+const restaurant = ref({});
 const subsidiaries = [
   {
     title: "AndysPizza Nr.1",
@@ -65,17 +31,10 @@ const subsidiaries = [
     schedule: "09:30 - 23:00",
   },
 ];
-const post = ref([]);
+const route = useRoute();
 onMounted(() => {
-  fetch(
-    "https://jsonplaceholder.typicode.com/posts"
-    // , {
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     title: "ada",
-    //   }),}
-  ).then((response) => response.json().then((data) => (post.value = data)));
+  getRestaurant({restaurantId: route.params.id})
+      .then(({data}) => (restaurant.value=data))
 });
 </script>
 
@@ -83,9 +42,10 @@ onMounted(() => {
   <div>
     <div class="restaurant">
       <div class="rest">
-        <h1 class="rest-name">
-          Andys Pizza
-        </h1>
+        <h1
+          class="rest-name"
+          v-text="restaurant.restaurantName"
+        />
         <div class="details">
           <h2 class="description">
             DETAILS
@@ -97,9 +57,10 @@ onMounted(() => {
                 icon="uil:receipt-alt"
               />Type:
             </h3>
-            <h3 class="rest-text">
-              Pizzeria
-            </h3>
+            <h3
+              class="rest-text"
+              v-text="restaurant.description"
+            />
             <h3 class="rest-den">
               <Icon
                 class="btn-icon"
@@ -107,7 +68,12 @@ onMounted(() => {
               />Prices Level:
             </h3>
             <h3 class="rest-text dollar">
-              $ $ $
+              <template
+                v-for="price in restaurant.pricing"
+                :key="price"
+              >
+                $
+              </template>
             </h3>
           </div>
         </div>
@@ -124,24 +90,31 @@ onMounted(() => {
             </h3>
             <a
               class="rest-text"
-              href="tel: +373 788 699 18"
-            >(+373) 788 699 18</a>
+              :href="'tel:' + restaurant.phone_number "
+              v-text="restaurant.phone_number"
+            />
+
             <h3 class="rest-den">
               <Icon
                 class="btn-icon"
                 icon="uil:envelope"
-              />Email:
+              />
+              Email:
             </h3>
             <a
               class="rest-text"
-              href="mailto:abc@example.com"
-            >menuHub@gmail.com</a>
+              :href="'mailto:' + restaurant.email"
+              v-text="restaurant.email"
+            />
           </div>
         </div>
       </div>
       <div class="rest-img">
         <div class="rest-image">
-          <img src="../img/andys.jpg">
+          <img
+            src="../img/andys.jpg"
+            alt="restaurant img"
+          >
         </div>
 
         <!-- <template v-for="tag in tags">
@@ -212,11 +185,12 @@ onMounted(() => {
             <img
               class="menu-img"
               src="../img/adelia.jpg"
+              alt="item image"
             >
             <h2 class="title">
               {{ food.title }}
             </h2>
-            <h3 class="ingridiets">
+            <h3 class="ingredients">
               {{ food.ingridients }}
             </h3>
             <h3 class="price">
@@ -345,17 +319,14 @@ onMounted(() => {
 
     .rest-image::before {
       content: "";
-      background-color: rgba(111, 181, 120, 1);
       border-radius: 40%;
       position: absolute;
       top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
-
       padding: 150px 220px;
       background-color: var(--verdeDeschis);
-
-      box-shadow: 0px 0px 156px 80px rgba(111, 181, 120, 1);
+      box-shadow: 0 0 156px 80px rgba(111, 181, 120, 1);
       @media screen and (max-width: 544px) {
         display: none;
       }
@@ -378,8 +349,7 @@ onMounted(() => {
     gap: 64px;
     justify-content: center;
     @media screen and (max-width: 544px) {
-      padding: 0 32px;
-      padding-bottom: 64px;
+      padding: 0 32px 64px 0;
       gap: 32px;
     }
 
@@ -505,7 +475,7 @@ onMounted(() => {
     transition-property: box-shadow, transform;
     transition: 0.3s ease;
     will-change: box-shadow, transform;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0 4px 12px;
 
     @media screen and (max-width: 544px) {
       padding: 24px 10px;
@@ -520,7 +490,7 @@ onMounted(() => {
     }
 
     &:hover {
-      box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+      box-shadow: rgba(0, 0, 0, 0.08) 0 4px 12px;
       background-color: var(--bg-color);
     }
     .btn-align {
@@ -545,7 +515,7 @@ onMounted(() => {
       }
       .btn-text {
         font-size: 24px;
-        font-weight: 700px;
+        font-weight: 700;
         display: block;
         color: var(--text-color);
         text-decoration: none;
@@ -561,7 +531,7 @@ onMounted(() => {
 .block-menu {
   background-color: var(--bg-color);
   padding: 48px 100px;
-  margin: 100px 0px;
+  margin: 100px 0;
   letter-spacing: 0.75px;
   @media screen and (max-width: 544px) {
     padding: 32px 32px;
@@ -604,18 +574,20 @@ onMounted(() => {
   }
   .list {
     margin: 0;
-    padding: 0;
     list-style-type: none;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    row-gap: 32px;
-    column-gap: 128px;
+    row-gap: 96px;
+    //column-gap: 128px;
     justify-content: space-between;
     align-items: center;
-    padding: 48px 0px;
+    padding: 48px 0;
+    justify-items: center;
     @media screen and (max-width: 544px) {
       grid-template-columns: 1fr;
-      padding: 48px 0px;
+      padding: 48px 0;
+      //gap: 64px;
+
     }
     .list-item {
       display: flex;
@@ -625,7 +597,7 @@ onMounted(() => {
       width: 320px;
       @media screen and (max-width: 544px) {
         // justify-content: space-between;
-        column-gap: 48px;
+        //column-gap: 48px;
       }
       .title {
         margin: 0;
@@ -639,11 +611,11 @@ onMounted(() => {
       }
       .menu-img{
         margin: 0 ;
-        height: 300px;
+        height: 250px;
         border-radius: 1rem;
 
       }
-      .ingridiets{
+      .ingredients{
         margin: 0 ;
         color: #767676;
         font-size: 18px;

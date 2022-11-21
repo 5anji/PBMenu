@@ -28,16 +28,14 @@ defineProps({
 <style scoped lang="scss">
 .restaurant-item {
   margin: 0;
-
-  display: block;
   background-color: white;
   background-image: url(../img/andys-rest.jpg);
   background-position: right;
   background-size: 200px;
   background-repeat: no-repeat;
   border-radius: 1rem;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
-    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0 4px 16px,
+    rgba(17, 17, 26, 0.05) 0 8px 32px;
   height: 200px;
   width: 435px;
   display: flex;
@@ -53,7 +51,7 @@ defineProps({
     // width: 100vh;
   }
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
     transform: scale(1.05);
     @media screen and (max-width: 544px) {
       transform: none;

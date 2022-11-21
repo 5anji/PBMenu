@@ -6,6 +6,7 @@ import Home from "./components/HomeComponent.vue";
 import Restaurants from "./components/RestaurantsComponent.vue";
 import Restaurant from "./components/RestaurantComponent.vue";
 import "./style.css";
+import {setDomain} from "./api/request";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -30,5 +31,5 @@ const router = createRouter({
     return to.hash ? { el: to.hash } : { top: 0 };
   },
 });
-
+setDomain("/api")
 createApp(App).use(router).mount("#app");

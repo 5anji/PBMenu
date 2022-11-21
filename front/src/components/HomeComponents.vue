@@ -33,7 +33,7 @@ defineProps({
   transition: 0.3s ease;
   will-change: box-shadow, transform;
   @media screen and (max-width: 544px) {
-    padding: 1.1rem 0rem;
+    padding: 1.1rem 0;
   }
 
   .home-rest {
@@ -47,7 +47,7 @@ defineProps({
     font-size: 24px;
     font-weight: 500;
     letter-spacing: 0.75px;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0 4px 12px;
     @media screen and (max-width: 544px) {
       padding: 18px 24px;
     }
