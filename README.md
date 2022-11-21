@@ -23,10 +23,6 @@ Site to review menus of any restaurant in Republic of Moldova, made by a group o
     sudo mkdir -p /opt/menuhub
     sudo cp ./bin/build/tablo_jar.jar /opt/menuhub/
     sudo cp ./bin/run-server /usr/bin/
-    sudo ufw allow "Nginx Full"
-    sudo ufw allow "OpenSSH"
-    sudo ufw status
-    sudo ufw enable
     systemctl status nginx
     ```
 
