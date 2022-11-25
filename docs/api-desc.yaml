@@ -575,7 +575,7 @@ paths:
       operationId: getRestaurantTags
       parameters:
         - in: path
-          name: restaurantId
+          name: subsidiaryId
           description: ID of restaurant to return
           required: true
           schema:
