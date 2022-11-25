@@ -101,7 +101,7 @@ onMounted(() => {
     </h1>
     <div class="top-restaurants">
       <div
-        v-for="item in list.slice(0, 3)"
+        v-for="item in list.slice(3, 10)"
         :key="item.restaurantId"
       >
         <router-link
@@ -109,8 +109,9 @@ onMounted(() => {
           :to="{ name: 'Restaurant', params: { id: item.restaurantId } }"
         >
           <restaurant-item
-            :title="item.restaurantName"
+            :restaurant-name="item.restaurantName"
             :description="item.description"
+            :photo="item.restaurantLogoUrl"
           />
         </router-link>
       </div>
@@ -415,21 +416,8 @@ onMounted(() => {
     }
 
     &:nth-of-type(3) {
-      bottom: 200px;
-      right: 250px;
-      --bg-color: #6fb578;
-      --txt-color: #405f5a;
-      --bg-color-1: hsl(128, 32%, 95%);
+      bottom: 80px;
 
-      transform: rotate(5deg);
-      @media screen and (max-width: 544px) {
-        bottom: 114px;
-        right: 30px;
-        transform: rotate(5deg);
-      }
-    }
-    &:nth-of-type(4) {
-      bottom: 100px;
       --bg-color: rgba(201, 195, 29, 1);
       --txt-color: rgba(201, 195, 29, 1);
       --bg-color-1: hsl(58, 75%, 95%);
@@ -437,11 +425,27 @@ onMounted(() => {
       transform: rotate(-5deg);
       @media screen and (max-width: 544px) {
         bottom: 44px;
+
+        transform: rotate(5deg);
+      }
+    }
+    &:nth-of-type(4) {
+      bottom: 200px;
+      right: 250px;
+      --bg-color: #6fb578;
+      --txt-color: #405f5a;
+      --bg-color-1: hsl(128, 32%, 95%);
+
+
+      transform: rotate(-5deg);
+      @media screen and (max-width: 544px) {
+        bottom: 114px;
+        right: 30px;
       }
     }
     &:nth-of-type(5) {
-      top: 270px;
-      left: 200px;
+      top: 250px;
+      left: 210px;
       --bg-color: rgba(201, 195, 29, 1);
       --txt-color: rgba(201, 195, 29, 1);
       --bg-color-1: hsl(58, 75%, 95%);
@@ -454,8 +458,8 @@ onMounted(() => {
       }
     }
     &:nth-of-type(6) {
-      bottom: 114px;
-      left: 290px;
+      bottom: 144px;
+      left: 280px;
       --bg-color: #8b7ab8;
       --txt-color: #8b7ab8;
       --bg-color-1: hsl(277, 32%, 95%);
@@ -515,10 +519,6 @@ onMounted(() => {
 }
 .top {
   padding: 96px 100px;
-  @media screen and (max-width: 1555px) {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
   @media screen and (max-width: 544px) {
     padding: 32px;
   }
@@ -803,13 +803,13 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 48px;
+    gap: 32px;
     cursor: pointer;
-    @media screen and (max-width: 1555px) {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 32px;
-    }
+    //@media screen and (max-width: 1555px) {
+    //  display: grid;
+    //  grid-template-columns: 1fr 1fr 1fr;
+    //  gap: 32px;
+    //}
     @media screen and (max-width: 544px) {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -846,7 +846,7 @@ onMounted(() => {
       }
     }
     .team-img {
-      height: 200px;
+      height: 180px;
       border-radius: 16px;
       box-shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;

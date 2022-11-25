@@ -1,21 +1,30 @@
 <script setup>
 defineProps({
-  "title":{
+  "restaurantName":{
     type: String,
     required: true,
   },
   "description":{
     type: String,
     required: true,
+  },
+  "photo":{
+    type: String,
+    required: true,
   }
+
 });
+
 </script>
 
 <template>
-  <div class="restaurant-item">
+  <div
+    class="restaurant-item"
+    :style="{ backgroundImage: `url(${photo})`}"
+  >
     <div class="restaurant">
       <h3 class="restaurant-title">
-        {{ title }}
+        {{ restaurantName }}
       </h3>
       <h3 class="restaurant-description">
         {{ description }}
@@ -29,15 +38,15 @@ defineProps({
 .restaurant-item {
   margin: 0;
   background-color: white;
-  background-image: url(../img/andys-rest.jpg);
+  //background-image: url(../img/andys-rest.jpg);
   background-position: right;
   background-size: 200px;
   background-repeat: no-repeat;
   border-radius: 1rem;
   box-shadow: rgba(17, 17, 26, 0.05) 0 4px 16px,
     rgba(17, 17, 26, 0.05) 0 8px 32px;
-  height: 200px;
-  width: 435px;
+  height: 190px;
+  width: 410px;
   display: flex;
   justify-content: space-between;
   overflow: hidden;
@@ -61,7 +70,7 @@ defineProps({
     display: grid;
     grid-template-rows: 2fr 1fr;
     row-gap: 16px;
-    padding: 32px;
+    padding: 32px 0 32px 32px;
     margin-right: 216px;
     align-content: space-between;
     height: 100%;
@@ -73,7 +82,7 @@ defineProps({
       margin: 0;
       color: var(--violetInchis);
       font-weight: 500;
-      font-size: 36px;
+      font-size: 30px;
       @media screen and (max-width: 544px) {
         font-size: 28px;
       }
@@ -82,7 +91,7 @@ defineProps({
       margin: 0;
       color: #767676;
       font-weight: 400;
-      font-size: 20px;
+      font-size: 18px;
       letter-spacing: 0.75px;
       @media screen and (max-width: 544px) {
         font-size: 18px;

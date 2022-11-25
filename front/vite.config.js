@@ -11,7 +11,7 @@ export default defineConfig({
       '/api': {
         changeOrigin: true,
         secure: false,
-        target: 'http://192.168.9.147:8081'
+        target: 'http://192.168.9.147:8080'
       }
     }
   }

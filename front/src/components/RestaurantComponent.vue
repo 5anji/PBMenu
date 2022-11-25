@@ -96,7 +96,7 @@ onMounted(() => {
       <div class="rest-img">
         <div class="rest-image">
           <img
-            src="../img/andys.jpg"
+            :src="restaurant.photoUrl"
             alt="restaurant img"
           >
         </div>
@@ -168,15 +168,15 @@ onMounted(() => {
           >
             <img
               class="menu-img"
-              src="../img/adelia.jpg"
+              :src="meal.foodPhoto"
               alt="item image"
             >
             <h2 class="title">
               {{ meal.foodName }}
             </h2>
-            <h3 class="ingredients">
+            <p class="ingredients">
               {{ meal.foodIngredients }}
-            </h3>
+            </p>
             <h3 class="price">
               {{ meal.foodPrice }} MDL
             </h3>
@@ -205,11 +205,19 @@ onMounted(() => {
             :key="d.restaurantId"
             class="list-item"
           >
+            <img
+              class="menu-img"
+              :src="d.drinkPhoto"
+              alt="item image"
+            >
             <h2
               class="title"
             >
               {{ d.drinkName }}
             </h2>
+            <p class="ingredients">
+              {{ d.drinkIngredients }}
+            </p>
 
             <h3 class="price">
               {{ d.drinkPrice }} MDL
@@ -327,7 +335,7 @@ onMounted(() => {
     }
   }
   .rest {
-    padding-left: 300px;
+    padding-left: 280px;
     display: flex;
     flex-direction: column;
     gap: 64px;
@@ -360,9 +368,8 @@ onMounted(() => {
     }
     .rest-info {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      row-gap: 24px;
-      // column-gap: 18px;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 24px;
       padding-left: 1rem;
       @media screen and (max-width: 544px) {
         grid-template-columns: 1fr 1.5fr;
@@ -562,11 +569,9 @@ onMounted(() => {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 96px;
-    //column-gap: 128px;
-    justify-content: space-between;
-    align-items: center;
+    column-gap: 96px;
     padding: 48px 0;
-    justify-items: center;
+
     @media screen and (max-width: 544px) {
       grid-template-columns: 1fr;
       padding: 48px 0;
@@ -574,11 +579,10 @@ onMounted(() => {
 
     }
     .list-item {
-      display: flex;
-      flex-direction: column ;
-      align-items: center;
+      display: grid;
+      grid-template-columns: auto;
       gap: 8px;
-      width: 320px;
+
       @media screen and (max-width: 544px) {
         // justify-content: space-between;
         //column-gap: 48px;
@@ -589,21 +593,27 @@ onMounted(() => {
         color: var(--text-color);
         font-size: 24px;
         font-weight: 500;
+        text-align: center;
         @media screen and (max-width: 544px) {
           font-size: 24px;
         }
       }
       .menu-img{
         margin: 0 ;
-        height: 250px;
+        height: auto;
+        width: 100%;
         border-radius: 1rem;
+        align-self: start;
+        aspect-ratio: 1 / 1;
+
 
       }
       .ingredients{
-        margin: 0 ;
+        margin: 0 auto;
         color: #767676;
         font-size: 18px;
         font-weight: 400;
+        text-align: center;
 
       }
       .price {
@@ -612,6 +622,10 @@ onMounted(() => {
         color: #888;
         font-size: 24px;
         font-weight: 400;
+        align-self: end;
+        text-align: center;
+
+
         @media screen and (max-width: 544px) {
           font-size: 18px;
         }

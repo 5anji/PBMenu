@@ -42,9 +42,8 @@ defineProps({
     align-items: center;
     justify-content: center;
     background-color: white;
-    padding: 32px 48px;
+    padding: 24px 32px;
     border-radius: 8px;
-    font-size: 24px;
     font-weight: 500;
     letter-spacing: 0.75px;
     box-shadow: rgba(0, 0, 0, 0.08) 0 4px 12px;
@@ -53,7 +52,7 @@ defineProps({
     }
     .home-rest-title {
       margin: 0;
-      font-size: 2.5rem;
+      font-size: 32px;
       font-weight: 500;
       letter-spacing: 0.75px;
       color: var(--txt-color);

@@ -35,8 +35,9 @@ onMounted(() => {
           :to="{ name: 'Restaurant', params: { id: item.restaurantId } }"
         >
           <restaurant-item
-            :title="item.restaurantName"
+            :restaurant-name="item.restaurantName"
             :description="item.description"
+            :photo="item.restaurantLogoUrl"
           />
         </router-link>
       </div>
@@ -77,11 +78,9 @@ onMounted(() => {
     text-align: center;
     justify-content: center;
     font-size: 24px;
-    gap: 100px;
-    @media screen and (max-width: 1555px) {
-      padding: 48px 48px;
-      gap: 48px;
-    }
+    column-gap: 58px;
+    row-gap: 64px;
+
     @media screen and (max-width: 544px) {
       display: flex;
       flex-direction: column;
