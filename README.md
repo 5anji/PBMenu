@@ -63,6 +63,7 @@ Site to review menus of any restaurant in Republic of Moldova, made by a group o
     sudo cp ./bin/menuhub.md /etc/nginx/sites-available/
     sudo ln -s /etc/nginx/sites-available/menuhub.md /etc/nginx/sites-enabled/
     unzip ./bin/build/dist.zip
+    sudo rm /var/www/menuhub.md/html/*
     sudo mv ./dist/* /var/www/menuhub.md/html/
     ```
 
